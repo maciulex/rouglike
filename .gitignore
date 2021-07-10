@@ -1,0 +1,8 @@
+
+rouglike/rouglike.cbp
+rouglike/rouglike.depend
+rouglike/obj/Debug/main.o
+rouglike/obj/Debug/cpp/player.o
+rouglike/obj/Debug/cpp/inputHandler.o
+rouglike/obj/Debug/cpp/globals.o
+*.o
