@@ -1,4 +1,5 @@
 #include "../headers/game.h"
+#include "../headers/player.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -6,6 +7,7 @@
 
 using namespace std;
 
+extern Player player;
 MainGame::GameVariables gameVariables;
 
 void MainGame::menu::menu() {
@@ -148,6 +150,8 @@ void MainGame::generateWord() {
             }
         }
     }
+    player.variables.x = width/2;
+    player.variables.y = height/2;
 }
 
 void MainGame::drawBoard() {
@@ -158,10 +162,10 @@ void MainGame::drawBoard() {
         for (int y = 0; y < height; y++) {
             cout << "\t";
             for (int x = 0; x < width; x++) {
-                //if (i == player.y && j == player.x) {
-                //    cout << dye::aqua('P');
-                //    continue;
-                //}
+                if (y == player.variables.y && x == player.variables.x) {
+                    cout << dye::aqua('P');
+                    continue;
+                }
                 switch(gameVariables.board[y][x]) {
                     case -1:
                         cout << '-';
@@ -183,27 +187,53 @@ void MainGame::drawBoard() {
             switch (y) {
                 case 25:
                     cout << "\t" << gameVariables.specialMesseges[0];
-                    gameVariables.specialMesseges[0]="";
+                    gameVariables.specialMesseges[0] = "";
                 break;
                 case 26:
                     cout << "\t" << gameVariables.specialMesseges[1];
-                    gameVariables.specialMesseges[1]="";
+                    gameVariables.specialMesseges[1] = "";
                 break;
                 case 27:
                     cout << "\t" << gameVariables.specialMesseges[2];
-                    gameVariables.specialMesseges[2]="";
+                    gameVariables.specialMesseges[2] = "";
                 break;
                 case 28:
                     cout << "\t" << gameVariables.specialMesseges[3];
-                    gameVariables.specialMesseges[3]="";
+                    gameVariables.specialMesseges[3] = "";
                 break;
                 case 29:
                     cout << "\t" << gameVariables.specialMesseges[4];
-                    gameVariables.specialMesseges[4]="";
+                    gameVariables.specialMesseges[4] = "";
                 break;
             }
             cout<<endl;
         }
     }
 };
+void MainGame::drawHud() {
+    char *endLine = "     | \n";
+    char *l1s1 = "\t---------------------------------------------------------------------------------------------------- \n";
+    char *l2s1 = "\t|                                                                                    hp: ";
+    char *l3s1 = "\t|                                                                                        ";
+    char *l4s1 = "\t|   |------------| |------------| |------------| |------------| |------------|       mp: ";
+    char *l5s1;
+    char *l6s1 = "\t|   |------------| |------------| |------------| |------------| |------------|       sp: ";
+    char *l7s1 = "\t|                                                                                    st: ";
+    char *l8s1 = "\t|                                                                                    it: ";
+    switch(gameVariables.hud) {
+        case 0:
+            l5s1 = "\t|   | Walcz      | | Cwicz      | | Przedmioty | | Statystyki | |    Menu    |           ";
+        break;
+        case -2:
+            l5s1 = "\t|   | Walke      | | Rozmowe    | | Magie      | | Odnow mp   | |   Powrot   |           ";
+        break;
+        case -1:
+            l5s1 = "\t|   | Wojownik   | | Mag        | | Uciekaj    | | Itemy      | | Powrot     |           ";
+        break;
+    }
+    cout << string(l1s1)+l2s1 << dye::red(player.variables.healthString[0])<<player.variables.healthString[1] << string(endLine)+l3s1
+    << dye::red(player.variables.healthString[2]) << player.variables.healthString[3] << endLine
+    << l4s1 << dye::blue(player.variables.manaString[0]) << player.variables.manaString[1] << endLine << l5s1 << player.variables.manaString[2] << player.variables.manaString[3]
+    << endLine << l6s1 << player.variables.speedString << endLine << l7s1 << player.variables.strengeString << endLine << l8s1 << player.variables.itelligenceString << endLine << l1s1;
+}
 

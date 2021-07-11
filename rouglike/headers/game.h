@@ -1,8 +1,7 @@
 #include <string>
-
 namespace MainGame {
     struct GameVariables {
-        int **board, width, height;
+        int **board, width, height, hud = 0;
         float difficulty;
         bool fastDrawBoard = false;
         std::string seed, specialMesseges[5] = {""};

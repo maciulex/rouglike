@@ -6,8 +6,10 @@
 #include "headers/globals.h"
 #include "headers/inputHandler.h"
 #include "headers/game.h"
+#include "headers/player.h"
 using namespace std;
 
+Player player;
 
 int main()
 {
@@ -15,6 +17,7 @@ int main()
     thread inputThread(Input);
     MainGame::menu::menu();
     MainGame::drawBoard();
+    MainGame::drawHud();
     while (ProgramOpenState) {
         Sleep(500);
     }
