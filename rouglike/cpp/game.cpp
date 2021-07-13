@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <string>
 #include "../lib/color.hpp"
 
 using namespace std;
@@ -262,3 +263,68 @@ void MainGame::drawGame() {
     }
     drawHud();
 }
+int MainGame::useCommand(string command) {
+    bool drawGameIsRequired = true;
+    int commandsIndex = 0;
+    string commands[7] = {""};
+    for (int i = 0; i < command.length(); i++) {
+        if (commandsIndex == 6) break;
+        if (command[i] == ' ') {
+            //if (commandsIndex > 0 && commands[i-1] == "") {commandsIndex-=1; continue;}
+            commandsIndex += 1;
+            continue;
+        }
+        commands[commandsIndex] += command[i];
+    }
+    for (int i = 0; i <= commandsIndex; i++) {
+        switch (hash<string>{}(commands[i])) {
+            case 11809324432133475174:
+//              ruch, move
+//                cout << " ; " << commands[i] << " : " << commands[i+1] << " : " << commands[i+2] << " ; ";
+//                system("pause");
+                if (commands[i+1] == "" || commands[i+2] == "") break;
+                int where = stoi(commands[i+2]);
+                if (where < 1 && where > 100) break;
+                switch (hash<string>{}(commands[i+1])) {
+                    case 15668420055513320597:
+//                        lewo, left
+//                        cout << "lewo " << where;
+//                        system("pause");
+                        player.playerMove(where*-1,0,false);
+                        drawGameIsRequired = false;
+                    break;
+                    case 11086085042462871678:
+//                        prawo, right
+//                        cout << "prawo " << where;
+//                        system("pause");
+                        player.playerMove(where,0,false);
+                        drawGameIsRequired = false;
+                    break;
+                    case 8463621150016919774:
+                    case 578713186308108379:
+//                        góra, top
+//                        cout << "góra " << where;
+//                        system("pause");
+                        player.playerMove(0,where*-1,false);
+                        drawGameIsRequired = false;
+                    break;
+                    case 4702917268846209421:
+                    case 1338332856947247205:
+//                        dó³, bottom
+//                        cout << "dó³ " << where;
+//                        system("pause");
+                        player.playerMove(0,where,false);
+                        drawGameIsRequired = false;
+                    break;
+                }
+                drawGame();
+            break;
+        }
+    }
+    if (drawGameIsRequired) {
+        return 1;
+    }
+    return 0;
+}
+
+

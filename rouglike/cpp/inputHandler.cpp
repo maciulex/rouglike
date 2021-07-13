@@ -66,18 +66,16 @@ void Input() {
             break;
             case 13:
                 //enter
-//                gamePointer->useCommand(command);
-//                command = "";
-//                commandB = false;
-//                if (fightDir == -1 && clearBoard) {
-//                    system("cls");
-//                    gamePointer->drawGame();
-//                }
+                if (command.length() > 0) {
+                    if (MainGame::useCommand(command) == 1)
+                        MainGame::drawGame();
+                    }
+                    command = "";
+                    commandB = false;
             break;
             case 8:
                 if (command.length() > 0) {
                     command.erase(command.length()-1);
-                    system("cls");
                     MainGame::drawGame();
                     std::cout << command;
                 }

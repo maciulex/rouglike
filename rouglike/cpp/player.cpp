@@ -71,7 +71,7 @@ void Player::updateCOIN(int x) {
     variables.coins += x;
     variables.coinsString = to_string(variables.coins)+string(5-to_string(variables.coins).length(),32);
 };
-void Player::playerMove(int GoTox, int GoToy) {
+void Player::playerMove(int GoTox, int GoToy, bool draw) {
     if (MainGame::getData::getDataInBattle()) {
         return;
     }
@@ -93,7 +93,7 @@ void Player::playerMove(int GoTox, int GoToy) {
                 cordinates[1] -= 1;
             } else {
                 hitStrenght += 1;
-                if (hitStrenght == 2 || place != -1 && place != -2) {
+                if (hitStrenght == 2 || place != -1 || place != -2) {
                     break;
                 }
             }
@@ -105,7 +105,7 @@ void Player::playerMove(int GoTox, int GoToy) {
                 cordinates[1] += 1;
             } else {
                 hitStrenght += 1;
-                if (hitStrenght == 2) {
+                if (hitStrenght == 2 || place != -1 || place != -2) {
                     break;
                 }
             }
@@ -118,7 +118,7 @@ void Player::playerMove(int GoTox, int GoToy) {
                 cordinates[0] -= 1;
             } else {
                 hitStrenght += 1;
-                if (hitStrenght == 2 || place != -1 && place != -2) {
+                if (hitStrenght == 2 || place != -1 || place != -2) {
                     break;
                 }
             }
@@ -130,7 +130,7 @@ void Player::playerMove(int GoTox, int GoToy) {
                 cordinates[0] += 1;
             } else {
                 hitStrenght += 1;
-                if (hitStrenght == 2) {
+                if (hitStrenght == 2 || place != -1 || place != -2) {
                     break;
                 }
             }
@@ -157,7 +157,9 @@ void Player::playerMove(int GoTox, int GoToy) {
 //        CreateMonster();
 //        cout << "Walka!";
 //    }
-    MainGame::drawGame();
+    if (draw) {
+        MainGame::drawGame();
+    }
 };
 void Player::restoreBlockedStatuses(int which) {
     switch(which) {
