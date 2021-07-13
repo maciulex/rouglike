@@ -1,7 +1,6 @@
 #ifndef __PLAYER_H
 #define __PLAYER_H
 #include <string>
-
 class Player {
      public:
         struct PlayerVariables {

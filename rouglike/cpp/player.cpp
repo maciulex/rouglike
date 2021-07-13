@@ -6,7 +6,6 @@ using namespace std;
 
 extern bool ProgramOpenState;
 extern int InputOutputDirection;
-//extern struct MainGame::GameVariablesStruct GameVariables;
 
 void Player::updateHP(int x) {
     char blockChar = 254;
@@ -73,61 +72,85 @@ void Player::updateCOIN(int x) {
     variables.coinsString = to_string(variables.coins)+string(5-to_string(variables.coins).length(),32);
 };
 void Player::playerMove(int GoTox, int GoToy) {
-//    if (MainGame::GameVariables.battle) {
-//        return;
-//    }
-//    for (int i = 0; i < 150; i++) {
-//        if (variables.specialStatus[i][0] != -1) {
-//            variables.specialStatus[i][1]-=1;
-//            if (variables.specialStatus[i][1] == 0) {
-//                variables.specialStatus[i][0] = -1;
-//                restoreBlockedStatuses(variables.specialStatus[i][1]);
-//            }
-//        }
-//    }
-//    int cordinates[2] = {variables.y,variables.x};
-//    int hitStrenght = 0;
-//    if (GoTox < 0) {
-//        for (int i = 0; i > GoTox; i--) {
-//            cout << MainGame::GameVariables.board[0][0];
-//            //int place = MainGame::GameVariables.board[cordinates[0]][cordinates[1]-1];
-//            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
-//                cordinates[1] -= 1;
-//            } else {
-//                hitStrenght += 1;
-//                if (hitStrenght == 2 || place != -1 && place != -2) {
-//                    break;
-//                }
-//            }
-//        }
-//    } else if (GoTox > 0) {
-//        for (int i = 0; i < GoTox; i++) {
-//            int place = MainGame::GameVariables.board[cordinates[0]][cordinates[1]+1];
-//            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
-//                cordinates[1] += 1;
-//            } else {
-//                hitStrenght += 1;
-//                if (hitStrenght == 2) {
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//    variables.y += cordinates[0];
-//    variables.x += cordinates[1];
-//    if (MainGame::GameVariables.board[variables.y][variables.x] == 2) {
-//        MainGame::GameVariables.specialMesseges[4] = "[i] dostepna komenda \"otworz\"";
-//    }
-//    switch (hitStrenght) {
-//        case 1:
-//            MainGame::GameVariables.specialMesseges[0] = "Uderzasz glowa w mur!";
-//            hitWall(1);
-//        break;
-//        case 2:
-//            MainGame::GameVariables.specialMesseges[0] = "Uderzasz z rozpedu w sciane";
-//            hitWall(2);
-//        break;
-//    }
+    if (MainGame::getData::getDataInBattle()) {
+        return;
+    }
+    for (int i = 0; i < 150; i++) {
+        if (variables.specialStatus[i][0] != -1) {
+            variables.specialStatus[i][1]-=1;
+            if (variables.specialStatus[i][1] == 0) {
+                variables.specialStatus[i][0] = -1;
+                restoreBlockedStatuses(variables.specialStatus[i][1]);
+            }
+        }
+    }
+    int cordinates[2] = {variables.y,variables.x};
+    int hitStrenght = 0;
+    if (GoTox < 0) {
+        for (int i = 0; i > GoTox; i--) {
+            int place = MainGame::getData::getDataBoard(cordinates[0],cordinates[1]-1);
+            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
+                cordinates[1] -= 1;
+            } else {
+                hitStrenght += 1;
+                if (hitStrenght == 2 || place != -1 && place != -2) {
+                    break;
+                }
+            }
+        }
+    } else if (GoTox > 0) {
+        for (int i = 0; i < GoTox; i++) {
+            int place = MainGame::getData::getDataBoard(cordinates[0],cordinates[1]+1);
+            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
+                cordinates[1] += 1;
+            } else {
+                hitStrenght += 1;
+                if (hitStrenght == 2) {
+                    break;
+                }
+            }
+        }
+    }
+    if (GoToy < 0) {
+        for (int i = 0; i > GoToy; i--) {
+            int place = MainGame::getData::getDataBoard(cordinates[0]-1,cordinates[1]);
+            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
+                cordinates[0] -= 1;
+            } else {
+                hitStrenght += 1;
+                if (hitStrenght == 2 || place != -1 && place != -2) {
+                    break;
+                }
+            }
+        }
+    } else if (GoToy > 0) {
+        for (int i = 0; i < GoToy; i++) {
+            int place = MainGame::getData::getDataBoard(cordinates[0]+1,cordinates[1]);
+            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
+                cordinates[0] += 1;
+            } else {
+                hitStrenght += 1;
+                if (hitStrenght == 2) {
+                    break;
+                }
+            }
+        }
+    }
+    variables.y = cordinates[0];
+    variables.x = cordinates[1];
+    if (MainGame::getData::getDataBoard(variables.y,variables.x) == 2) {
+        MainGame::getData::setSpecialMessages("[i] dostepna komenda \"otworz\"",4);
+    }
+    switch (hitStrenght) {
+        case 1:
+            MainGame::getData::setSpecialMessages("Uderzasz glowa w mur!",0);
+            hitWall(1);
+        break;
+        case 2:
+            MainGame::getData::setSpecialMessages("Uderzasz z rozpedu w sciane",0);
+            hitWall(2);
+        break;
+    }
 //    if (rand()%100+1 > chanceForFight) {
 //        drawGame();
 //    } else {

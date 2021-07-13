@@ -9,6 +9,16 @@ using namespace std;
 
 extern Player player;
 
+bool MainGame::getData::getDataInBattle() {
+    return GameVariables.battle;
+}
+
+int MainGame::getData::getDataBoard(int y, int x) {
+    return GameVariables.board[y][x];
+}
+void MainGame::getData::setSpecialMessages(string text, int row) {
+    GameVariables.specialMesseges[row] = text;
+}
 
 void MainGame::menu::menu() {
     int choice;
