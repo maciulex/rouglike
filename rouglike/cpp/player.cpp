@@ -1,7 +1,12 @@
 #include "../headers/player.h"
+#include "../headers/game.h"
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
+
+extern bool ProgramOpenState;
+extern int InputOutputDirection;
+//extern struct MainGame::GameVariablesStruct GameVariables;
 
 void Player::updateHP(int x) {
     char blockChar = 254;
@@ -67,6 +72,85 @@ void Player::updateCOIN(int x) {
     variables.coins += x;
     variables.coinsString = to_string(variables.coins)+string(5-to_string(variables.coins).length(),32);
 };
+void Player::playerMove(int GoTox, int GoToy) {
+//    if (MainGame::GameVariables.battle) {
+//        return;
+//    }
+//    for (int i = 0; i < 150; i++) {
+//        if (variables.specialStatus[i][0] != -1) {
+//            variables.specialStatus[i][1]-=1;
+//            if (variables.specialStatus[i][1] == 0) {
+//                variables.specialStatus[i][0] = -1;
+//                restoreBlockedStatuses(variables.specialStatus[i][1]);
+//            }
+//        }
+//    }
+//    int cordinates[2] = {variables.y,variables.x};
+//    int hitStrenght = 0;
+//    if (GoTox < 0) {
+//        for (int i = 0; i > GoTox; i--) {
+//            cout << MainGame::GameVariables.board[0][0];
+//            //int place = MainGame::GameVariables.board[cordinates[0]][cordinates[1]-1];
+//            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
+//                cordinates[1] -= 1;
+//            } else {
+//                hitStrenght += 1;
+//                if (hitStrenght == 2 || place != -1 && place != -2) {
+//                    break;
+//                }
+//            }
+//        }
+//    } else if (GoTox > 0) {
+//        for (int i = 0; i < GoTox; i++) {
+//            int place = MainGame::GameVariables.board[cordinates[0]][cordinates[1]+1];
+//            if (place != -1 && place != -2 && place != 1 && hitStrenght == 0) {
+//                cordinates[1] += 1;
+//            } else {
+//                hitStrenght += 1;
+//                if (hitStrenght == 2) {
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//    variables.y += cordinates[0];
+//    variables.x += cordinates[1];
+//    if (MainGame::GameVariables.board[variables.y][variables.x] == 2) {
+//        MainGame::GameVariables.specialMesseges[4] = "[i] dostepna komenda \"otworz\"";
+//    }
+//    switch (hitStrenght) {
+//        case 1:
+//            MainGame::GameVariables.specialMesseges[0] = "Uderzasz glowa w mur!";
+//            hitWall(1);
+//        break;
+//        case 2:
+//            MainGame::GameVariables.specialMesseges[0] = "Uderzasz z rozpedu w sciane";
+//            hitWall(2);
+//        break;
+//    }
+//    if (rand()%100+1 > chanceForFight) {
+//        drawGame();
+//    } else {
+//        CreateMonster();
+//        cout << "Walka!";
+//    }
+    MainGame::drawGame();
+};
+void Player::restoreBlockedStatuses(int which) {
+    switch(which) {
+        case 7:
+            updateST(1);
+        case 10:
+            updateMP(1);
+        break;
+        case 14:
+            updateSP(2);
+        break;
+    }
+}
+void Player::hitWall(int strength) {
+
+}
 Player::Player() {
     variables.maxHealth = 5;
     variables.maxMana = 3;
@@ -82,6 +166,3 @@ Player::Player() {
     variables.attacksWarrior[1][0] = 2;
     variables.attacksWarrior[2][0] = 3;
 }
-
-
-

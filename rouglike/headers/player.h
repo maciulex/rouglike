@@ -1,3 +1,5 @@
+#ifndef __PLAYER_H
+#define __PLAYER_H
 #include <string>
 
 class Player {
@@ -13,5 +15,9 @@ class Player {
         void updateSP(int x);
         void updateIT(int x);
         void updateCOIN(int x);
+        void hitWall(int strength);
+        void playerMove(int x = 0, int y = 0);
+        void restoreBlockedStatuses(int which);
         Player();
 };
+#endif

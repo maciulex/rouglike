@@ -1,0 +1,6 @@
+C:\Users\maciu\AppData\Local\Temp\ccGYQPIr.o:main.cpp:(.text+0x119): undefined reference to `MainGame::menu::menu()'
+C:\Users\maciu\AppData\Local\Temp\ccGYQPIr.o:main.cpp:(.text+0x123): undefined reference to `Input()'
+C:\Users\maciu\AppData\Local\Temp\ccGYQPIr.o:main.cpp:(.text+0x132): undefined reference to `MainGame::drawBoard()'
+C:\Users\maciu\AppData\Local\Temp\ccGYQPIr.o:main.cpp:(.text+0x137): undefined reference to `MainGame::drawHud()'
+C:\Users\maciu\AppData\Local\Temp\ccGYQPIr.o:main.cpp:(.text+0x25a): undefined reference to `Player::Player()'
+collect2.exe: error: ld returned 1 exit status

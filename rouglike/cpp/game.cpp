@@ -8,7 +8,7 @@
 using namespace std;
 
 extern Player player;
-MainGame::GameVariables gameVariables;
+
 
 void MainGame::menu::menu() {
     int choice;
@@ -55,19 +55,19 @@ void MainGame::menu::newGame() {
     }
     switch (intChoice) {
         case 1:
-            gameVariables.difficulty = 0.5;
+            GameVariables.difficulty = 0.5;
         break;
         case 2:
-            gameVariables.difficulty = 0.75;
+            GameVariables.difficulty = 0.75;
         break;
         case 3:
-            gameVariables.difficulty = 1;
+            GameVariables.difficulty = 1;
         break;
         case 4:
-            gameVariables.difficulty = 1.25;
+            GameVariables.difficulty = 1.25;
         break;
         case 5:
-            gameVariables.difficulty = 1.5;
+            GameVariables.difficulty = 1.5;
         break;
         default:
             menuFail();
@@ -79,33 +79,33 @@ void MainGame::menu::newGame() {
         menuFail();
     }
     if (boolChoice == 't' || boolChoice == 'T') {
-        gameVariables.seed = "falseNotNULLSeed";
+        GameVariables.seed = "falseNotNULLSeed";
     } else {
         cout << "Podaj seed gry: ";
-        cin >> gameVariables.seed;
+        cin >> GameVariables.seed;
         if (cin.fail()) {
             menuFail();
         }
     }
-    gameVariables.width = 100;
-    gameVariables.height = 50;
+    GameVariables.width = 100;
+    GameVariables.height = 50;
     generateWord();
 }
 void MainGame::generateWord() {
-    if (gameVariables.seed == "falseNotNULLSeed"){
+    if (GameVariables.seed == "falseNotNULLSeed"){
         srand(time(NULL));
     } else {
-        srand(hash<string>{}(gameVariables.seed));
+        srand(hash<string>{}(GameVariables.seed));
     }
-    int height = gameVariables.height, width = gameVariables.width;
-    gameVariables.board = new int *[height];
+    int height = GameVariables.height, width = GameVariables.width;
+    GameVariables.board = new int *[height];
     for (int y = 0; y < height; y++) {
-        gameVariables.board[y] = new int [width];
+        GameVariables.board[y] = new int [width];
         for (int x = 0; x < width; x++) {
             if (y == 0 || y == height-1) {
-                gameVariables.board[y][x] = -1;
+                GameVariables.board[y][x] = -1;
             } else if (x == 0 || x == width-1) {
-                gameVariables.board[y][x] = -2;
+                GameVariables.board[y][x] = -2;
             } else {
                 int r;
                 if (y > 15 && y < 35 && x > 30 && x < 70) {
@@ -114,29 +114,29 @@ void MainGame::generateWord() {
                     r = rand()%3+1;
                 }
                 if (r!=1) {
-                    gameVariables.board[y][x] = 0;
+                    GameVariables.board[y][x] = 0;
                 } else {
-                    gameVariables.board[y][x] = 1;
+                    GameVariables.board[y][x] = 1;
                 }
             }
         }
     }
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            if (gameVariables.board[y][x] == -1 || gameVariables.board[y][x] == -2) {
+            if (GameVariables.board[y][x] == -1 || GameVariables.board[y][x] == -2) {
                 continue;
             }
             for (int smooth = 0; smooth < 1; smooth++) {
                 int wall = 0;
                 for (int Sy = -1; Sy <= 1; Sy++) {
                     for (int Sx = -1; Sx <= 1; Sx++) {
-                        if (gameVariables.board[y+Sy][x+Sx] != 0) {
+                        if (GameVariables.board[y+Sy][x+Sx] != 0) {
                             wall += 1;
                         }
                     }
                 }
                 if (wall > 5) {
-                    gameVariables.board[y][x] = 1;
+                    GameVariables.board[y][x] = 1;
                 }
             }
         }
@@ -144,9 +144,9 @@ void MainGame::generateWord() {
     for (int y = -3; y <= 3; y++) {
         for (int x = -3; x <= 3; x++) {
             if ((y == -3 || y == 3) && (x == -3 || x == 3)) {
-                gameVariables.board[height/2+y][width/2+x] = 2;
+                GameVariables.board[height/2+y][width/2+x] = 2;
             } else {
-                gameVariables.board[height/2+y][width/2+x] = 0;
+                GameVariables.board[height/2+y][width/2+x] = 0;
             }
         }
     }
@@ -155,8 +155,8 @@ void MainGame::generateWord() {
 }
 
 void MainGame::drawBoard() {
-    int height = gameVariables.height, width = gameVariables.width;
-    if (gameVariables.fastDrawBoard) {
+    int height = GameVariables.height, width = GameVariables.width;
+    if (GameVariables.fastDrawBoard) {
 
     } else {
         for (int y = 0; y < height; y++) {
@@ -166,7 +166,7 @@ void MainGame::drawBoard() {
                     cout << dye::aqua('P');
                     continue;
                 }
-                switch(gameVariables.board[y][x]) {
+                switch(GameVariables.board[y][x]) {
                     case -1:
                         cout << '-';
                     break;
@@ -186,24 +186,24 @@ void MainGame::drawBoard() {
             }
             switch (y) {
                 case 25:
-                    cout << "\t" << gameVariables.specialMesseges[0];
-                    gameVariables.specialMesseges[0] = "";
+                    cout << "\t" << GameVariables.specialMesseges[0];
+                    GameVariables.specialMesseges[0] = "";
                 break;
                 case 26:
-                    cout << "\t" << gameVariables.specialMesseges[1];
-                    gameVariables.specialMesseges[1] = "";
+                    cout << "\t" << GameVariables.specialMesseges[1];
+                    GameVariables.specialMesseges[1] = "";
                 break;
                 case 27:
-                    cout << "\t" << gameVariables.specialMesseges[2];
-                    gameVariables.specialMesseges[2] = "";
+                    cout << "\t" << GameVariables.specialMesseges[2];
+                    GameVariables.specialMesseges[2] = "";
                 break;
                 case 28:
-                    cout << "\t" << gameVariables.specialMesseges[3];
-                    gameVariables.specialMesseges[3] = "";
+                    cout << "\t" << GameVariables.specialMesseges[3];
+                    GameVariables.specialMesseges[3] = "";
                 break;
                 case 29:
-                    cout << "\t" << gameVariables.specialMesseges[4];
-                    gameVariables.specialMesseges[4] = "";
+                    cout << "\t" << GameVariables.specialMesseges[4];
+                    GameVariables.specialMesseges[4] = "";
                 break;
             }
             cout<<endl;
@@ -220,7 +220,7 @@ void MainGame::drawHud() {
     char *l6s1 = "\t|   |------------| |------------| |------------| |------------| |------------|       sp: ";
     char *l7s1 = "\t|                                                                                    st: ";
     char *l8s1 = "\t|                                                                                    it: ";
-    switch(gameVariables.hud) {
+    switch(GameVariables.hud) {
         case 0:
             l5s1 = "\t|   | Walcz      | | Cwicz      | | Przedmioty | | Statystyki | |    Menu    |           ";
         break;
@@ -236,4 +236,19 @@ void MainGame::drawHud() {
     << l4s1 << dye::blue(player.variables.manaString[0]) << player.variables.manaString[1] << endLine << l5s1 << player.variables.manaString[2] << player.variables.manaString[3]
     << endLine << l6s1 << player.variables.speedString << endLine << l7s1 << player.variables.strengeString << endLine << l8s1 << player.variables.itelligenceString << endLine << l1s1;
 }
+void MainGame::DrawBlank() {
+    string blank = "";
+    for (int i = 0; i < 40; i++) {
+        blank += "\n";
+    }
+    cout << blank;
+}
+void MainGame::drawGame() {
+    DrawBlank();
+    if (GameVariables.battle) {
 
+    } else {
+        drawBoard();
+    }
+    drawHud();
+}
