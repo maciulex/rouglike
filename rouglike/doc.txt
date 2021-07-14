@@ -1,0 +1,54 @@
+specialStatus codes
+1 -1 hp
+2 -2 hp
+3 -3 hp
+4 -1 mp
+5 -2 mp
+6 -3 mp
+7 -1 stre
+8 -2 stre
+9 -3 stre
+10 -1 int
+11 -2 int
+12 -3 int
+13 -1 speed
+14 -2 speed
+15 -3 speed
+
+Monsters data 
+	1 name
+	2 hp
+	3 strenge
+	4 speed
+ 	5 luck
+	6 mag 1 / wojownik 2
+	7 int
+1 - wojownik
+2- mag
+hit wall strenght
+	1-low
+	2-big
+
+
+
+
+inventory
+1 - sword
+2 - magic wand
+3 - health potion small
+4 - health potion meadium
+5 - health potion big
+6 - mana potion small
+7 - mana potion meadium
+8 - mana potion big
+9 - zwoj sztuki walki piece
+10 - zwoj sztuki walki weak
+11 - zwoj sztuki walki meadium
+12 - zwoj sztuki walki epic
+13 - zwoj sztuki walki Legendary
+14 - zwoj sztuki magi piece
+15 - zwoj sztuki magi weak
+16 - zwoj sztuki magi meadium
+17 - zwoj sztuki magi epic
+18 - zwoj sztuki magi Legendary
+

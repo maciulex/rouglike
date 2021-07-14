@@ -17,10 +17,15 @@ bool MainGame::getData::getDataInBattle() {
 int MainGame::getData::getDataBoard(int y, int x) {
     return GameVariables.board[y][x];
 }
+int MainGame::getData::getLevel() {
+    return GameVariables.level;
+}
+float MainGame::getData::getDifficulty() {
+    return GameVariables.difficulty;
+}
 void MainGame::getData::setSpecialMessages(string text, int row) {
     GameVariables.specialMesseges[row] = text;
 }
-
 void MainGame::menu::menu() {
     int choice;
     cout << "-----MENU-----" << endl;
@@ -161,6 +166,7 @@ void MainGame::generateWord() {
             }
         }
     }
+    GameVariables.level += 1;
     player.variables.x = width/2;
     player.variables.y = height/2;
 }

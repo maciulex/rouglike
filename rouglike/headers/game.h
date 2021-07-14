@@ -5,7 +5,7 @@
 
 namespace MainGame {
     struct{
-        int **board, width, height, hud = 0;
+        int **board, width, height, hud = 0, level = 0;
         float difficulty;
         bool fastDrawBoard = false, battle = false;
         std::string seed, specialMesseges[5] = {""};
@@ -26,6 +26,8 @@ namespace MainGame {
     int useCommand(std::string command);
     namespace getData {
         bool getDataInBattle();
+        int getLevel();
+        float getDifficulty();
         int getDataBoard(int y, int x);
         void setSpecialMessages(std::string text, int row);
     }
