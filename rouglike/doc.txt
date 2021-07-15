@@ -1,3 +1,6 @@
+hudy
+0 główny bez walki startowy
+1 przedmioty i zarządzanie nimi
 specialStatus codes
 1 -1 hp
 2 -2 hp

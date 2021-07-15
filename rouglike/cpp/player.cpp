@@ -1,11 +1,13 @@
 #include "../headers/player.h"
 #include "../headers/game.h"
+#include "../headers/iteams.h"
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
 
 extern bool ProgramOpenState;
 extern int InputOutputDirection;
+extern gameItems::MeleeWeapon MeleeWeaponArrray[1];
 
 void Player::updateHP(int x) {
     char blockChar = 254;
@@ -235,6 +237,8 @@ void Player::hitWall(int strength) {
                         <<      "Potrzebujesz miejsca w ekwipunku by podniesc przedmiot"
                         <<      "------------------------------------------------------";
                     }
+                    //cout << "dupa: " << weapon1.id;
+                    system("pause");
                     if (rarity < 1.5) {
                         MainGame::getData::setSpecialMessages("Zwoj walki skrawek", 2);
                     } else if (rarity < 3) {
@@ -261,7 +265,7 @@ void Player::hitWall(int strength) {
 
 int Player::getInventoryFreeIndex() {
     for (int i = 0; i < variables.inventorySize; i++) {
-        if (variables.inventory[i] == -1) {
+        if (variables.inventory[i][0] == -1) {
             return i;
         }
     }
@@ -270,10 +274,10 @@ int Player::getInventoryFreeIndex() {
 
 void Player::drawInventory() {
     for (int i = 0; i < variables.inventorySize; i++) {
-        if (variables.inventory[i] == -1) {
-            cout << i+1 <<") Pusty Slot" << endl;
+        if (variables.inventory[i][0] == -1) {
+            cout << "\t" << i+1 <<") Pusty Slot" << endl;
         } else {
-
+            cout << "\t" << i+1 << ") " << MeleeWeaponArrray[variables.inventory[i][0]].name << endl;
         }
     }
 }

@@ -241,6 +241,9 @@ void MainGame::drawHud() {
         case 0:
             l5s1 = "\t|   | Walcz      | | Cwicz      | | Przedmioty | | Statystyki | |    Menu    |           ";
         break;
+        case 1:
+            l5s1 = "\t|   | Zamien     | | Wyrzuc     | | Uzyj       | | Szczegoly  | |   Powrot   |           ";
+        break;
         case -2:
             l5s1 = "\t|   | Walke      | | Rozmowe    | | Magie      | | Odnow mp   | |   Powrot   |           ";
         break;
@@ -262,6 +265,11 @@ void MainGame::DrawBlank() {
 }
 void MainGame::drawGame() {
     DrawBlank();
+    if (GameVariables.hud == 1) {
+        player.drawInventory();
+        drawHud();
+        return;
+    }
     if (GameVariables.battle) {
 
     } else {
@@ -283,47 +291,83 @@ int MainGame::useCommand(string command) {
         commands[commandsIndex] += command[i];
     }
     for (int i = 0; i <= commandsIndex; i++) {
-        switch (hash<string>{}(commands[i])) {
-            case 11809324432133475174:
-//              ruch, move
-//                cout << " ; " << commands[i] << " : " << commands[i+1] << " : " << commands[i+2] << " ; ";
-//                system("pause");
-                if (commands[i+1] == "" || commands[i+2] == "") break;
-                int where = stoi(commands[i+2]);
-                if (where < 1 && where > 100) break;
-                switch (hash<string>{}(commands[i+1])) {
-                    case 15668420055513320597:
-//                        lewo, left
-//                        cout << "lewo " << where;
-//                        system("pause");
-                        player.playerMove(where*-1,0,false);
-                        drawGameIsRequired = false;
+        int where;
+        switch (GameVariables.hud) {
+            case 1:
+               switch (hash<string>{}(commands[i])) {
+                    case 5772833367524736768:
+//                      powrot
+                        GameVariables.hud = 0;
+                        drawGame();
+                        return 0;
                     break;
-                    case 11086085042462871678:
-//                        prawo, right
-//                        cout << "prawo " << where;
-//                        system("pause");
-                        player.playerMove(where,0,false);
-                        drawGameIsRequired = false;
+                    case 10743544026436958666:
+//                      Zamien
+
                     break;
-                    case 8463621150016919774:
-                    case 578713186308108379:
-//                        góra, top
-//                        cout << "góra " << where;
-//                        system("pause");
-                        player.playerMove(0,where*-1,false);
-                        drawGameIsRequired = false;
+                    case 3260554669361923085:
+//                      Wyrzuc
+
                     break;
-                    case 4702917268846209421:
-                    case 1338332856947247205:
-//                        dó³, bottom
-//                        cout << "dó³ " << where;
-//                        system("pause");
-                        player.playerMove(0,where,false);
-                        drawGameIsRequired = false;
+                    case 3829121089218035508:
+//                      Uzyj
+
+                    break;
+                    case 5366797971342239317:
+//                      Szczegoly
+
                     break;
                 }
-                drawGame();
+            break;
+            default:
+                switch (hash<string>{}(commands[i])) {
+                    case 11809324432133475174:
+                        if (GameVariables.hud != 0) return 1;
+//                      ruch, move
+//                      cout << " ; " << commands[i] << " : " << commands[i+1] << " : " << commands[i+2] << " ; ";
+//                      system("pause");
+                        if (commands[i+1] == "" || commands[i+2] == "") break;
+                        where = stoi(commands[i+2]);
+                        if (where < 1 && where > 100) break;
+                        switch (hash<string>{}(commands[i+1])) {
+                            case 15668420055513320597:
+//                                lewo, left
+//                                cout << "lewo " << where;
+//                                system("pause");
+                                player.playerMove(where*-1,0,false);
+                                drawGameIsRequired = false;
+                            break;
+                            case 11086085042462871678:
+//                                prawo, right
+//                                cout << "prawo " << where;
+//                                system("pause");
+                                player.playerMove(where,0,false);
+                                drawGameIsRequired = false;
+                            break;
+                            case 8463621150016919774:
+                            case 578713186308108379:
+//                                góra, top
+//                                cout << "góra " << where;
+//                                system("pause");
+                                player.playerMove(0,where*-1,false);
+                                drawGameIsRequired = false;
+                            break;
+                            case 4702917268846209421:
+                            case 1338332856947247205:
+//                                dó³, bottom
+//                                cout << "dó³ " << where;
+//                                system("pause");
+                                player.playerMove(0,where,false);
+                                drawGameIsRequired = false;
+                            break;
+                        }
+                        drawGame();
+                    break;
+                    case 16249881897017512211:
+                        GameVariables.hud = 1;
+                        drawGame();
+                    break;
+                }
             break;
         }
     }
