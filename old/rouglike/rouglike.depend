@@ -1,0 +1,118 @@
+# depslib dependency file v1.0
+1628629924 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\main.cpp
+	<iostream>
+	<thread>
+	<windows.h>
+	<stdlib.h>
+	<time.h>
+	"headers/globals.h"
+	"headers/utilitis/board.h"
+	"headers/utilitis/commands.h"
+	"headers/utilitis/hud.h"
+	"headers/utilitis/menu.h"
+	"headers/game.h"
+	"headers/player.h"
+	"headers/inputHandler.h"
+	"headers/iteams.h"
+
+1628630054 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\globals.h
+	"iteams.h"
+
+1628630065 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\globals.cpp
+
+1628630232 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\game.cpp
+	"../headers/game.h"
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<string>
+
+1628630852 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\player.cpp
+
+1625930119 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\inputhandler.cpp
+
+1626210332 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\inputhandler.cpp
+	"../headers/inputHandler.h"
+	"../headers/game.h"
+	"../headers/player.h"
+	<string>
+	<conio.h>
+	<iostream>
+
+1626086644 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\inputhandler.h
+
+1628629503 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\game.h
+	<string>
+	"player.h"
+
+1625937280 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\game\variables.h
+
+1625937031 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\game\variables.cpp
+
+1537003831 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\lib\color.hpp
+	<algorithm>
+	<iostream>
+	<list>
+	<map>
+	<string>
+	<type_traits>
+	<utility>
+	<windows.h>
+
+1628626269 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\player.h
+	<string>
+
+1626284750 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\items.cpp
+	"../headers/iteams.h"
+	<string>
+
+1626284679 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\iteams.h
+	<string>
+
+1628626494 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\playerutilitis\updates.cpp
+	"../../headers/player.h"
+
+1628626636 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\commandutilitis.cpp
+
+1628626618 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\hudutilitis.cpp
+
+1628627121 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\boardutilitis.cpp
+	"../../headers/game.h"
+
+1628626964 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\namespacemaingame\getdata.cpp
+	"../../../headers/game.h"
+
+1628627392 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\namespacemenu\menuutilitis.cpp
+	"../../../headers/game.h"
+	<iostream>
+
+1628626636 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\commands.cpp
+
+1628630562 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\hud.cpp
+	<iostream>
+	"../../headers/utilitis/hud.h"
+
+1628629658 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\utilitis\board.h
+
+1628627910 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\utilitis\commands.h
+
+1628630885 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\utilitis\hud.h
+	"../../headers/player.h"
+
+1628628577 c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\headers\utilitis\menu.h
+
+1628629768 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\board.cpp
+	<iostream>
+	"../../headers/utilitis/board.h"
+	"../../headers/globals.h"
+	"../../headers/player.h"
+	"../../headers/utilitis/hud.h"
+	"../../headers/utilitis/board.h"
+	"../../lib/color.hpp"
+
+1628629421 source:c:\users\maciu\dysk google\programowanie\programowanie\c++\projekty które s¹ ponad to\rouglike\rouglike\rouglike\cpp\gameutilitis\menu.cpp
+	"../../headers/utilitis/menu.h"
+	<iostream>
+	"../../headers/globals.h"
+	"../../headers/game.h"
+

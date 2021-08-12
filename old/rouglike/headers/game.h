@@ -2,14 +2,11 @@
 #define __GAME_H
 
 #include <string>
+#include "player.h"
+
+extern Player player;
 
 namespace MainGame {
-    struct{
-        int **board, width, height, hud = 0, level = 0;
-        float difficulty;
-        bool fastDrawBoard = false, battle = false;
-        std::string seed, specialMesseges[5] = {""};
-    } GameVariables;
     namespace menu {
         void menu();
         void loadGame();
@@ -19,9 +16,6 @@ namespace MainGame {
         void menuFail();
     }
     void generateWord();
-    void drawBoard();
-    void DrawBlank();
-    void drawHud();
     void drawGame();
     int useCommand(std::string command);
     namespace getData {

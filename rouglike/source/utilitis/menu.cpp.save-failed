@@ -1,0 +1,92 @@
+#ifndef MENU_NAMESPACE
+#define MENU_NAMESPACE
+
+#include <iostream>
+
+namespace Menu {
+    void menuFail();
+    void newGame();
+
+    void menu() {
+        int choice;
+        std::cout << "-----MENU-----" << std::endl;
+        std::cout << "1) Nowa gra" << std::endl;
+        std::cout << "2) Wczytaj gre" << std::endl;
+        std::cout << "3) Opcje" << std::endl;
+        std::cout << "4) Wyjdz" << std::endl;
+        std::cin >> choice;
+        if (std::cin.fail()) {
+            menuFail();
+        }
+        switch (choice) {
+            case 1:
+                newGame();
+            break;
+            case 2:
+
+            break;
+            case 3:
+
+            break;
+            case 4:
+                exit(0);
+            break;
+            default:
+                menuFail();
+            break;
+        }
+    };
+    void menuFail() {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        system("cls");
+        menu();
+    }
+    void newGame() {
+        char boolChoice;
+        int intChoice;
+        std::cout << "Trudnosc: (1-5) 1 - latwy, 3 - normaly, 5 trudny" << std::endl;
+        std::cin >> intChoice;
+        if (std::cin.fail()) {
+            menuFail();
+        }
+//        switch (intChoice) {
+//            case 1:
+//                GameVariables.difficulty = 0.5;
+//            break;
+//            case 2:
+//                GameVariables.difficulty = 0.75;
+//            break;
+//            case 3:
+//                GameVariables.difficulty = 1;
+//            break;
+//            case 4:
+//                GameVariables.difficulty = 1.25;
+//            break;
+//            case 5:
+//                GameVariables.difficulty = 1.5;
+//            break;
+//            default:
+//                menuFail();
+//            break;
+//        }
+//        std::cout << "Randomowy seed? (T/N): " << std::endl;
+//        std::cin >> boolChoice;
+//        if (std::cin.fail()) {
+//            menuFail();
+//        }
+//        if (boolChoice == 't' || boolChoice == 'T') {
+//            GameVariables.seed = "falseNotNULLSeed";
+//        } else {
+//            std::cout << "Podaj seed gry: ";
+//            std::cin >> GameVariables.seed;
+//            if (std::cin.fail()) {
+//                menuFail();
+//            }
+//        }
+//        GameVariables.width = 100;
+//        GameVariables.height = 50;
+//        MainGame::generateWord();
+    }
+}
+#endif

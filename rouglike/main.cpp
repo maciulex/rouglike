@@ -1,13 +1,17 @@
 #include <iostream>
-#include <thread>
+#include <cstdlib>
+#include <ctime>
 #include <windows.h>
-#include <stdlib.h>
-#include <time.h>
-#include "headers/globals.h"
-#include "headers/game.h"
-#include "headers/player.h"
-#include "headers/inputHandler.h"
-#include "headers/iteams.h"
+#include <thread>
+
+#include "headers/global.hpp"
+#include "headers/game.hpp"
+#include "headers/player.hpp"
+#include "headers/input.hpp"
+#include "headers/utilitis/board.hpp"
+#include "headers/utilitis/hud.hpp"
+#include "headers/utilitis/menu.hpp"
+
 
 using namespace std;
 
@@ -16,14 +20,12 @@ Player player;
 int main()
 {
     srand(time(NULL));
-    gameItems::loadWeapons();
-    MainGame::menu::menu();
+    Menu::menu();
     thread inputThread(Input);
-    MainGame::drawBoard();
-    MainGame::drawHud();
+    Board::drawBoard();
+    Hud::drawHud();
     while (ProgramOpenState) {
         Sleep(500);
     }
-    inputThread.detach();
     return 0;
 }
