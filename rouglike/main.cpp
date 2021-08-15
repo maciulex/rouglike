@@ -8,6 +8,7 @@
 #include "headers/game.hpp"
 #include "headers/player.hpp"
 #include "headers/input.hpp"
+#include "headers/utilitis/items.hpp"
 #include "headers/utilitis/board.hpp"
 #include "headers/utilitis/hud.hpp"
 #include "headers/utilitis/menu.hpp"
@@ -20,6 +21,7 @@ Player player;
 int main()
 {
     srand(time(NULL));
+    gameItems::loadWeapons();
     Menu::menu();
     thread inputThread(Input);
     Board::drawBoard();

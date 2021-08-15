@@ -24,6 +24,7 @@ bool Debug::itemsSubMenuContent() {
             return false;
         case 1:
             gameItems::loadWeapons();
+        break;
         case 2:
             std::cout      << std::endl << std::endl
             << "Which?"    << std::endl
@@ -40,14 +41,10 @@ bool Debug::itemsSubMenuContent() {
                     gameItems::drawItems(1);
                 break;
                 case 3:
-                    gameItems::drawItems(0);
-                    gameItems::drawItems(1);
+                    gameItems::drawItems(2);
                 break;
             }
-
         break;
-        default:
-            return true;
     }
-    return false;
+    return true;
 }

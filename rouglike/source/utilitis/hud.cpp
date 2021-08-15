@@ -20,11 +20,15 @@ void Hud::drawHud() {
     char *l6s1 = "\t|   |------------| |------------| |------------| |------------| |------------|       sp: ";
     char *l7s1 = "\t|                                                                                    st: ";
     char *l8s1 = "\t|                                                                                    it: ";
+    // 0 = standard 1 - ekwipunek 2 - wyrzucenie broni
     switch(GameVariables.hud) {
         case 0:
             l5s1 = "\t|   | Walcz      | | Cwicz      | | Przedmioty | | Statystyki | |    Menu    |           ";
         break;
         case 1:
+            l5s1 = "\t|   | Zamien     | | Wyrzuc     | | Uzyj       | | Szczegoly  | |   Powrot   |           ";
+        break;
+        case 2:
             l5s1 = "\t|   | Zamien     | | Wyrzuc     | | Uzyj       | | Szczegoly  | |   Powrot   |           ";
         break;
         case -2:

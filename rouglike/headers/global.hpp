@@ -5,6 +5,7 @@
 
 
     extern bool ProgramOpenState;
+    extern bool BlockInputThread;
     extern int InputOutputDirection;
     extern globalsGameVariables GameVariables;
 

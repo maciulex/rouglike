@@ -95,6 +95,7 @@ int useCommand(string command) {
                         Board::drawGame();
                     break;
                     case 16249881897017512211:
+                        //przedmioty
                         GameVariables.hud = 1;
                         Board::drawGame();
                     break;

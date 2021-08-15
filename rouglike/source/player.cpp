@@ -37,6 +37,7 @@ void Player::restoreBlockedStatuses(int which) {
     }
 }
 void Player::hitWall(int strength) {
+    char choice;
     int freeIndex, randomCase = 8;
     float rarity = Game::getRarity();
     int inventoryIndex = getInventoryFreeIndex();
@@ -86,27 +87,30 @@ void Player::hitWall(int strength) {
                     updateSP(-1);
                 break;
                 case 8:
-//                    MainGame::getData::setSpecialMessages("Uderzajc w sciane znalazels ukryty zwoj", 1);
-//                    if (inventoryIndex == -1) {
-//                        Board::drawBlank();
-//                        drawInventory();
-//                        cout << "------------------------------------------------------"
-//                        <<      "Potrzebujesz miejsca w ekwipunku by podniesc przedmiot"
-//                        <<      "------------------------------------------------------";
-//                    }
-//                    //cout << "dupa: " << weapon1.id;
-//                    system("pause");
-//                    if (rarity < 1.5) {
-//                        MainGame::getData::setSpecialMessages("Zwoj walki skrawek", 2);
-//                    } else if (rarity < 3) {
-//                        MainGame::getData::setSpecialMessages("Zwoj walki maly", 2);
-//                    } else if (rarity < 6) {
-//                        MainGame::getData::setSpecialMessages("Zwoj walki sredni", 2);
-//                    } else if (rarity < 15) {
-//                        MainGame::getData::setSpecialMessages("Zwoj walki wielki", 2);
-//                    } else {
-//                        MainGame::getData::setSpecialMessages("Zwoj walki Legendarny", 2);
-//                    }
+                    Game::setSpecialMessages("Uderzajc w sciane znalazels ukryty zwoj", 1);
+                    if (rarity < 1.5) {
+                        Game::setSpecialMessages("Zwoj walki skrawek", 2);
+                    } else if (rarity < 3) {
+                        Game::setSpecialMessages("Zwoj walki maly", 2);
+                    } else if (rarity < 6) {
+                        Game::setSpecialMessages("Zwoj walki sredni", 2);
+                    } else if (rarity < 15) {
+                        Game::setSpecialMessages("Zwoj walki wielki", 2);
+                    } else {
+                        Game::setSpecialMessages("Zwoj walki Legendarny", 2);
+                    }
+                    Board::drawGame();
+                    cout << "Czy chcesz ten item? (T/N)";
+                    cin >> choice;
+                    if (choice == 't' || choice == 'T') {
+                        if (inventoryIndex == -1) {
+                            player.dropItemForNewOne();
+                        }
+                        freeIndex = player.getInventoryFreeIndex();
+                        if (inventoryIndex != -1) {
+                            //do stuff adding item
+                        }
+                    }
                 break;
                 case 9:
                     Game::setSpecialMessages("Uderzajc w sciane znalazles ukryty skarb +200 monet", 1);

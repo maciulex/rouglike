@@ -17,6 +17,7 @@ void Input() {
         char input;
         bool commandB = true;
         input = getch();
+        if (BlockInputThread) continue;
 //        if (fightDir != -1) {
 //            switch ((int)input) {
 //                case 77:

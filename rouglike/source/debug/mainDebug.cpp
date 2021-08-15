@@ -27,10 +27,8 @@ bool Debug::menu() {
         case 2:
             itemsSubMenu();
         break;
-        default:
-            return true;
     }
-
+    return true;
 }
 
 void Debug::getHashCode() {
