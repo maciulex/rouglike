@@ -4,6 +4,8 @@
 #include "../headers/utilitis/board.hpp"
 #include "../headers/player.hpp"
 
+#include <math.h>
+
 using namespace std;
 
 extern Player player;
@@ -32,10 +34,6 @@ int useCommand(string command) {
                         Board::drawGame();
                         return 0;
                     break;
-                    case 10743544026436958666:
-//                      Zamien
-
-                    break;
                     case 3260554669361923085:
 //                      Wyrzuc
 
@@ -48,7 +46,22 @@ int useCommand(string command) {
 //                      Szczegoly
 
                     break;
+                    case 14526079891305879776:
+//                      >
+                        if (player.variables.actualPage == ceil(player.variables.inventorySize/player.variables.inventoryOnePageItemAmount)) return 0;
+                        player.variables.actualPage += 1;
+                        Board::drawGame();
+                    break;
+                    case 1396094175042499165:
+//                      <
+                        if (player.variables.actualPage == 1) return 0;
+                        player.variables.actualPage -= 1;
+                        Board::drawGame();
+                    break;
                 }
+            break;
+            case 2:
+
             break;
             default:
                 switch (hash<string>{}(commands[i])) {

@@ -102,15 +102,17 @@ void Player::hitWall(int strength) {
                     Board::drawGame();
                     cout << "Czy chcesz ten item? (T/N)";
                     cin >> choice;
+                    BlockInputThread = true;
                     if (choice == 't' || choice == 'T') {
                         if (inventoryIndex == -1) {
-                            player.dropItemForNewOne();
+                            dropItemForNewOne();
                         }
-                        freeIndex = player.getInventoryFreeIndex();
+                        freeIndex = getInventoryFreeIndex();
                         if (inventoryIndex != -1) {
                             //do stuff adding item
                         }
                     }
+                    BlockInputThread = false;
                 break;
                 case 9:
                     Game::setSpecialMessages("Uderzajc w sciane znalazles ukryty skarb +200 monet", 1);

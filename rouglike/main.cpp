@@ -21,6 +21,7 @@ Player player;
 int main()
 {
     srand(time(NULL));
+
     gameItems::loadWeapons();
     Menu::menu();
     thread inputThread(Input);

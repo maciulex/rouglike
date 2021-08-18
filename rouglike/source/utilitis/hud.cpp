@@ -26,10 +26,10 @@ void Hud::drawHud() {
             l5s1 = "\t|   | Walcz      | | Cwicz      | | Przedmioty | | Statystyki | |    Menu    |           ";
         break;
         case 1:
-            l5s1 = "\t|   | Zamien     | | Wyrzuc     | | Uzyj       | | Szczegoly  | |   Powrot   |           ";
+            l5s1 = "\t|   | Uzyj       | | Wyrzuc     | | Szczegoly  | |  <  /  >   | |   Powrot   |           ";
         break;
         case 2:
-            l5s1 = "\t|   | Zamien     | | Wyrzuc     | | Uzyj       | | Szczegoly  | |   Powrot   |           ";
+            l5s1 = "\t|   | Wyrzuc     | | Szczegoly  | |     <      | |      >     | |   Powrot   |           ";
         break;
         case -2:
             l5s1 = "\t|   | Walke      | | Rozmowe    | | Magie      | | Odnow mp   | |   Powrot   |           ";
