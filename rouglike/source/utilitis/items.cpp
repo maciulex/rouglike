@@ -95,12 +95,15 @@ void gameItems::addWeapon(std::string data[11]) {
     int id = std::stoi(data[0]), classificationInt = std::stoi(data[5]), rarity=std::stoi(data[10]);
     std::string type = data[1], name = data[8], classification = data[9];
     float damage = std::stof(data[2]), speed = std::stof(data[3]), range = std::stof(data[4]), requiredStrength = std::stof(data[6]), requiredIteligence = std::stof(data[7]);
-    if (classificationInt == 1) {
-        MeleeWeaponArray[indexMeleeWeapons] = MeleeWeapon(id, damage, speed, range, classificationInt, requiredStrength, rarity, name, classification);
-        indexMeleeWeapons += 1;
-    } else {
-        RangeWeaponArray[indexRangeWeapons] = RangeWeapon(id, damage, speed, range, classificationInt, requiredIteligence, rarity, name, classification);
-        indexRangeWeapons += 1;
+    switch (classificationInt) {
+        case 1:
+            MeleeWeaponArray[indexMeleeWeapons] = MeleeWeapon(id, damage, speed, range, classificationInt, requiredStrength, rarity, name, classification);
+            indexMeleeWeapons += 1;
+        break;
+        case 2:
+            RangeWeaponArray[indexRangeWeapons] = RangeWeapon(id, damage, speed, range, classificationInt, requiredIteligence, rarity, name, classification);
+            indexRangeWeapons += 1;
+        break;
     }
 }
 
@@ -114,19 +117,6 @@ void gameItems::drawItems(int whichType) {
     std::cout << "By zobaczyc wiecej informacji wpisz \"showIteam |typ| |id|\"";
 }
 
-void gameItems::drawMelee() {
-    std::cout << "Bronie do walki wrecz \"melee\"" << std::endl;
-    for (int i = 0; i < indexMeleeWeapons; i++) {
-        std::cout << i+1 << ") " << MeleeWeaponArray[i].name << std::endl;
-    }
-}
-void gameItems::drawRange() {
-    std::cout << "Bronie do walki na odlegoosc \"range\"" << std::endl;
-    for (int i = 0; i < indexRangeWeapons; i++) {
-        std::cout << i+1 << ") " << RangeWeaponArray[i].name << std::endl;
-    }
-}
-
 std::string gameItems::getWeaponData(int type, int id, std::string what) {
     switch (type) {
         case 0:
@@ -135,96 +125,4 @@ std::string gameItems::getWeaponData(int type, int id, std::string what) {
             return getRangeData(id, what);
     }
 }
-std::string gameItems::getMeleeData(int id, std::string what) {
-    if (id < 0 || id >= indexMeleeWeapons) {
-        return "-1";
-    }
-    switch (std::hash<std::string>{}(what)) {
-        case 14258576900392064537:
-            //id
-            return std::to_string(MeleeWeaponArray[id].id);
-        case 2998709681581561703:
-            //damage
-            return std::to_string(MeleeWeaponArray[id].damage);
-        case 4878149271039768326:
-            //speed
-            return std::to_string(MeleeWeaponArray[id].speed);
-        case 2914616072447184159:
-            //range
-            return std::to_string(MeleeWeaponArray[id].range);
-        case 11812193097163427324:
-            //classficationInt
-            return std::to_string(MeleeWeaponArray[id].classficationInt);
-        case 17918958457440324476:
-            //requiredStrenght
-            return std::to_string(MeleeWeaponArray[id].requiredStrenght);
-        case 13862207918752884272:
-            //rarity
-            return std::to_string(MeleeWeaponArray[id].rarity);
-        case 10420554295983197538:
-            //name
-            return MeleeWeaponArray[id].name;
-        case 11728969269359993017:
-            //classification
-            return MeleeWeaponArray[id].classification;
-    }
-    return "-1";
-}
-std::string gameItems::getRangeData(int id, std::string what) {
-    if (id < 0 || id >= indexMeleeWeapons) {
-        return "-1";
-    }
-    switch (std::hash<std::string>{}(what)) {
-        case 14258576900392064537:
-            //id
-            return std::to_string(MeleeWeaponArray[id].id);
-        case 2998709681581561703:
-            //damage
-            return std::to_string(MeleeWeaponArray[id].damage);
-        case 4878149271039768326:
-            //speed
-            return std::to_string(MeleeWeaponArray[id].speed);
-        case 2914616072447184159:
-            //range
-            return std::to_string(MeleeWeaponArray[id].range);
-        case 11812193097163427324:
-            //classficationInt
-            return std::to_string(MeleeWeaponArray[id].classficationInt);
-        case 13302216649247095329:
-            //requiredInt
-            return std::to_string(MeleeWeaponArray[id].requiredStrenght);
-        case 13862207918752884272:
-            //rarity
-            return std::to_string(MeleeWeaponArray[id].rarity);
-        case 10420554295983197538:
-            //name
-            return MeleeWeaponArray[id].name;
-        case 11728969269359993017:
-            //classification
-            return MeleeWeaponArray[id].classification;
-    }
-    return "-1";
-}
 
-gameItems::MeleeWeapon::MeleeWeapon(int id, float damage, float speed, float range, int classficationInt, float requiredStrenght, int rarity, std::string name, std::string classification) {
-    this->id = id;
-    this->damage = damage;
-    this->speed = speed;
-    this->range = range;
-    this->classficationInt = classficationInt;
-    this->requiredStrenght = requiredStrenght;
-    this->rarity = rarity;
-    this->name = name;
-    this->classification = classification;
-}
-gameItems::RangeWeapon::RangeWeapon(int id, float damage, float speed, float range, int classficationInt, float requiredInt, int rarity, std::string name, std::string classification) {
-    this->id = id;
-    this->damage = damage;
-    this->speed = speed;
-    this->range = range;
-    this->classficationInt = classficationInt;
-    this->requiredInt = requiredInt;
-    this->rarity = rarity;
-    this->name = name;
-    this->classification = classification;
-}

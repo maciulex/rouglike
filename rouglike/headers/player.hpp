@@ -24,6 +24,12 @@ class Player {
         void drawInventory();
         void dropItemForNewOne();
         void dropItemForNewOne_draw_only();
+        void drawMoreDataAbout(int index);
+        void drawMoreDataAboutMelee(int index);
+        void drawMoreDataAboutRange(int index);
+        void dropIteam(int index);
+        void dropIteam(std::string index);
+        bool iteamIndexValidation(int index);
         Player();
 };
 #endif

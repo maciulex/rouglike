@@ -5,6 +5,7 @@
 #include "../headers/player.hpp"
 
 #include <math.h>
+#include <iostream>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int useCommand(string command) {
                     break;
                     case 3260554669361923085:
 //                      Wyrzuc
-
+                        player.dropIteam(commands[i+1]);
                     break;
                     case 3829121089218035508:
 //                      Uzyj
@@ -44,7 +45,15 @@ int useCommand(string command) {
                     break;
                     case 5366797971342239317:
 //                      Szczegoly
-
+                        where = stoi(commands[i+1]);
+                        if (where < 1 || where > player.variables.inventorySize) {
+                            cout << "Out of range";
+                            system("pause");
+                            continue;
+                        }
+                        where -= 1;
+                        player.drawMoreDataAbout(where);
+                        system("pause");
                     break;
                     case 14526079891305879776:
 //                      >

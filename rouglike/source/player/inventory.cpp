@@ -7,6 +7,10 @@
 #include <iostream>
 #include <math.h>
 
+
+extern gameItems::MeleeWeapon *MeleeWeaponArray;
+extern gameItems::RangeWeapon *RangeWeaponArray;
+
 int Player::getInventoryFreeIndex() {
     for (int i = 0; i < variables.inventorySize; i++) {
         if (variables.inventory[i][0] == -1) {
@@ -47,26 +51,52 @@ void Player::dropItemForNewOne_draw_only() {
 }
 
 void Player::dropItemForNewOne() {
-    std::string choice;
     bool functionLoopState = true;
     GameVariables.hud = 2;
     while (functionLoopState) {
-        dropItemForNewOne_draw_only();
-        std::cin >> choice;
-        switch (std::hash<std::string>{}(choice)) {
+        std::string rawChoice;
+        std::string choice[5] = {""};
+        int commandIndex = 0;
 
+        dropItemForNewOne_draw_only();
+
+        std::getline(std::cin, rawChoice);
+
+        for (int i = 0; i < rawChoice.length(); i++) {
+            if (commandIndex == 5) break;
+            if (rawChoice[i] == ' ') {
+                commandIndex += 1;
+                continue;
+            }
+            choice[commandIndex] += rawChoice[i];
+        }
+        int choicedIteam;
+        switch (std::hash<std::string>{}(choice[0])) {
+            case 5366797971342239317:
+//              Szczegoly
+                if (choice[1] == "") continue;
+                choicedIteam = std::stoi(choice[1]);
+                if (choicedIteam < 1 || choicedIteam > variables.inventorySize) continue;
+                choicedIteam -= 1;
+                drawMoreDataAbout(choicedIteam);
+                system("pause");
+            break;
+            case 3260554669361923085:
+//              Wyrzuc
+                dropIteam(choice[1]);
+            break;
             case 14526079891305879776:
-//           >
+//              >
                 if (variables.actualPage == ceil(variables.inventorySize/variables.inventoryOnePageItemAmount)) continue;
                 variables.actualPage += 1;
             break;
             case 1396094175042499165:
-//           <
+//              <
                 if (variables.actualPage == 1) continue;
                 variables.actualPage -= 1;
             break;
             case 5772833367524736768:
-//           powrot
+//              powrot
                 GameVariables.hud = 0;
                 functionLoopState = false;
             break;
@@ -74,3 +104,53 @@ void Player::dropItemForNewOne() {
 
     }
 }
+
+void Player::drawMoreDataAbout(int index) {
+    switch (variables.inventory[index][1]) {
+        case 0:
+            drawMoreDataAboutMelee(variables.inventory[index][0]);
+        break;
+        case 1:
+            drawMoreDataAboutRange(variables.inventory[index][0]);
+        break;
+    }
+}
+void Player::drawMoreDataAboutMelee(int index) {
+    std::cout << "\n*\t" << "-----------------------------" << std::endl;
+    std::cout << "*\t\t" << "Nazwa: " << MeleeWeaponArray[index].name << std::endl;
+    std::cout << "*\t\t" << "Rzadkosc: " << MeleeWeaponArray[index].classification << std::endl;
+    std::cout << "*\t\t" << "Obrazenia: " << MeleeWeaponArray[index].damage << std::endl;
+    std::cout << "*\t\t" << "Szybkosc: " << MeleeWeaponArray[index].speed << std::endl;
+    std::cout << "*\t\t" << "Zasieg: " << MeleeWeaponArray[index].range << std::endl;
+    std::cout << "*\t\t" << "Wymagana sila: " << MeleeWeaponArray[index].requiredStrenght << std::endl;
+    std::cout << "*\t"   << "-----------------------------" << std::endl;
+}
+void Player::drawMoreDataAboutRange(int index) {
+    std::cout << "\n*\t" << "-----------------------------" << std::endl;
+    std::cout << "*\t\t" << "Nazwa: " << RangeWeaponArray[index].name << std::endl;
+    std::cout << "*\t\t" << "Rzadkosc: " << RangeWeaponArray[index].classification << std::endl;
+    std::cout << "*\t\t" << "Obrazenia: " << RangeWeaponArray[index].damage << std::endl;
+    std::cout << "*\t\t" << "Szybkosc: " << RangeWeaponArray[index].speed << std::endl;
+    std::cout << "*\t\t" << "Zasieg: " << RangeWeaponArray[index].range << std::endl;
+    std::cout << "*\t\t" << "Wymagana Inteligenca: " << RangeWeaponArray[index].requiredInt << std::endl;
+    std::cout << "*\t"   << "-----------------------------" << std::endl;
+}
+
+void Player::dropIteam(int index) {
+    if (iteamIndexValidation(index)) return;
+    variables.inventory[index][0] = -1;
+    variables.inventory[index][1] = -1;
+}
+void Player::dropIteam(std::string index) {
+    int choicedIteam;
+    if (index == "") return;
+    choicedIteam = std::stoi(index)-1;
+    if (iteamIndexValidation(choicedIteam)) return;
+    variables.inventory[choicedIteam][0] = -1;
+    variables.inventory[choicedIteam][1] = -1;
+}
+bool Player::iteamIndexValidation(int index) {
+    return (index < 0 || index >= variables.inventorySize);
+}
+
+
