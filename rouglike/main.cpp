@@ -22,7 +22,7 @@ int main()
 {
     srand(time(NULL));
 
-    gameItems::loadWeapons();
+    gameItems::loadIteams();
     Menu::menu();
     thread inputThread(Input);
     Board::drawBoard();

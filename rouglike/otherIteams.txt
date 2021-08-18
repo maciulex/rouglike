@@ -1,0 +1,17 @@
+id:0
+type:heal
+classificationInt:1
+name:Male leczenie
+lore:Jest w stanie lekko cie wyleczyc
+classificationText:Bardzo pospolite
+rarity:1
+-3--
+id:0
+type:buff
+classificationInt:1
+name:Troche sily
+lore:Jest w stanie dac ci troche sily na chwile
+buff:7,1
+classificationText:Bardzo pospolite
+rarity:1
+-4--

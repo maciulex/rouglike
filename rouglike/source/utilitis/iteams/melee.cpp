@@ -5,7 +5,7 @@
 extern int indexMeleeWeapons;
 extern gameItems::MeleeWeapon *MeleeWeaponArray;
 
-gameItems::MeleeWeapon::MeleeWeapon(int id, float damage, float speed, float range, int classficationInt, float requiredStrenght, int rarity, std::string name, std::string classification) {
+gameItems::MeleeWeapon::MeleeWeapon(int id, float damage, float speed, float range, float requiredStrenght, int rarity, std::string name, std::string classification, int classficationInt) {
     this->id = id;
     this->damage = damage;
     this->speed = speed;

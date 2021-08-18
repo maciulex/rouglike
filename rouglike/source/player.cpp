@@ -23,19 +23,6 @@ Player::Player() {
     variables.attacksWarrior[2] = 3;
 }
 
-
-void Player::restoreBlockedStatuses(int which) {
-    switch(which) {
-        case 7:
-            updateST(1);
-        case 10:
-            updateMP(1);
-        break;
-        case 14:
-            updateSP(2);
-        break;
-    }
-}
 void Player::hitWall(int strength) {
     char choice;
     int freeIndex, randomCase = 8;
@@ -122,6 +109,100 @@ void Player::hitWall(int strength) {
                     Game::setSpecialMessages("Uderzajc w sciane znalazels ukryty zwoj +1 zwoj magiczny", 1);
                 break;
             }
+        break;
+    }
+}
+void Player::restoreBlockedStatuses(int which) {
+    switch(which) {
+        case 1:
+            updateHP(1);
+        break;
+        case 2:
+            updateHP(2);
+        break;
+        case 3:
+            updateHP(3);
+        break;
+        case 4:
+            updateMP(1);
+        break;
+        case 5:
+            updateMP(2);
+        break;
+        case 6:
+            updateMP(3);
+        break;
+        case 7:
+            updateST(1);
+        break;
+        case 8:
+            updateST(2);
+        break;
+        case 9:
+            updateST(3);
+        break;
+        case 10:
+            updateIT(1);
+        break;
+        case 11:
+            updateIT(2);
+        break;
+        case 12:
+            updateIT(3);
+        break;
+        case 13:
+            updateSP(1);
+        break;
+        case 14:
+            updateSP(2);
+        break;
+        case 15:
+            updateSP(3);
+        break;
+        case 100:
+            updateHP(-1);
+        break;
+        case 101:
+            updateHP(-2);
+        break;
+        case 102:
+            updateHP(-3);
+        break;
+        case 103:
+            updateMP(-1);
+        break;
+        case 104:
+            updateMP(-2);
+        break;
+        case 105:
+            updateMP(-3);
+        break;
+        case 106:
+            updateST(-1);
+        break;
+        case 107:
+            updateST(-2);
+        break;
+        case 108:
+            updateST(-3);
+        break;
+        case 109:
+            updateIT(-1);
+        break;
+        case 110:
+            updateIT(-2);
+        break;
+        case 111:
+            updateIT(-3);
+        break;
+        case 112:
+            updateSP(-1);
+        break;
+        case 113:
+            updateSP(-2);
+        break;
+        case 114:
+            updateSP(-3);
         break;
     }
 }

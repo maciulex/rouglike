@@ -5,7 +5,7 @@
 extern int indexRangeWeapons;
 extern gameItems::RangeWeapon *RangeWeaponArray;
 
-gameItems::RangeWeapon::RangeWeapon(int id, float damage, float speed, float range, int classficationInt, float requiredInt, int rarity, std::string name, std::string classification) {
+gameItems::RangeWeapon::RangeWeapon(int id, float damage, float speed, float range, float requiredInt, int rarity, std::string name, std::string classification, int classficationInt) {
     this->id = id;
     this->damage = damage;
     this->speed = speed;

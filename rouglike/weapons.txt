@@ -9,7 +9,7 @@ requiredItelligence:1
 name:blade
 classificationText:Bardzo pospolite
 rarity:1
-----
+-1--
 id:0
 type:range
 damage:2
@@ -21,4 +21,4 @@ requiredItelligence:1
 name:bow
 classificationText:Bardzo pospolite
 rarity:1
-----
+-2--

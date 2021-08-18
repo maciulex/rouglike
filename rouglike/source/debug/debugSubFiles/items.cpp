@@ -30,7 +30,9 @@ bool Debug::itemsSubMenuContent() {
             << "Which?"    << std::endl
             << "1) melee"  << std::endl
             << "2) range"  << std::endl
-            << "3) all"    << std::endl
+            << "3) heal"  << std::endl
+            << "4) buff"  << std::endl
+            << "5) all"    << std::endl
             << "0) cancel" << std::endl;
             std::cin >> choice;
             switch (choice) {
@@ -43,6 +45,13 @@ bool Debug::itemsSubMenuContent() {
                 case 3:
                     gameItems::drawItems(2);
                 break;
+                case 4:
+                    gameItems::drawItems(3);
+                break;
+                case 5:
+                    gameItems::drawItems(4);
+                break;
+
             }
         break;
     }
