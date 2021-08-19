@@ -5,7 +5,7 @@
 extern int indexMeleeWeapons;
 extern gameItems::MeleeWeapon *MeleeWeaponArray;
 
-gameItems::MeleeWeapon::MeleeWeapon(int id, float damage, float speed, float range, float requiredStrenght, int rarity, std::string name, std::string classification, int classficationInt) {
+gameItems::MeleeWeapon::MeleeWeapon(int id, float damage, float speed, float range, float requiredStrenght, int rarity, std::string name, std::string classification, int classficationInt, bool useable) {
     this->id = id;
     this->damage = damage;
     this->speed = speed;
@@ -15,6 +15,18 @@ gameItems::MeleeWeapon::MeleeWeapon(int id, float damage, float speed, float ran
     this->rarity = rarity;
     this->name = name;
     this->classification = classification;
+    this->useable = useable;
+}
+
+void gameItems::drawMoreDataAboutMelee(int index) {
+    std::cout << "\n*\t" << "-----------------------------" << std::endl;
+    std::cout << "*\t\t" << "Nazwa: " << MeleeWeaponArray[index].name << std::endl;
+    std::cout << "*\t\t" << "Rzadkosc: " << MeleeWeaponArray[index].classification << std::endl;
+    std::cout << "*\t\t" << "Obrazenia: " << MeleeWeaponArray[index].damage << std::endl;
+    std::cout << "*\t\t" << "Szybkosc: " << MeleeWeaponArray[index].speed << std::endl;
+    std::cout << "*\t\t" << "Zasieg: " << MeleeWeaponArray[index].range << std::endl;
+    std::cout << "*\t\t" << "Wymagana sila: " << MeleeWeaponArray[index].requiredStrenght << std::endl;
+    std::cout << "*\t"   << "-----------------------------" << std::endl;
 }
 
 void gameItems::drawMelee() {
@@ -56,6 +68,9 @@ std::string gameItems::getMeleeData(int id, std::string what) {
         case 11728969269359993017:
             //classification
             return MeleeWeaponArray[id].classification;
+        case 11430414146544851443:
+            //useable
+            return ((MeleeWeaponArray[id].useable) ? "1" : "0");
     }
     return "-1";
 }

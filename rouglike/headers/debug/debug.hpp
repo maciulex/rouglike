@@ -11,6 +11,7 @@ namespace Debug {
     //itemsSubFile
     void itemsSubMenu();
     bool itemsSubMenuContent();
+    void changeIteamInInventory();
 
 }
 

@@ -7,5 +7,6 @@ namespace Menu {
     void menu();
     void menuFail();
     void newGame();
+    void menuInGame();
 }
 #endif

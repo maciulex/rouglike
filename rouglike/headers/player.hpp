@@ -25,10 +25,9 @@ class Player {
         void dropItemForNewOne();
         void dropItemForNewOne_draw_only();
         void drawMoreDataAbout(int index);
-        void drawMoreDataAboutMelee(int index);
-        void drawMoreDataAboutRange(int index);
         void dropIteam(int index);
         void dropIteam(std::string index);
+        bool tryUseIteam(int index);
         bool iteamIndexValidation(int index);
         Player();
 };

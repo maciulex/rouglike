@@ -5,7 +5,7 @@
 extern int indexRangeWeapons;
 extern gameItems::RangeWeapon *RangeWeaponArray;
 
-gameItems::RangeWeapon::RangeWeapon(int id, float damage, float speed, float range, float requiredInt, int rarity, std::string name, std::string classification, int classficationInt) {
+gameItems::RangeWeapon::RangeWeapon(int id, float damage, float speed, float range, float requiredInt, int rarity, std::string name, std::string classification, int classficationInt, bool useable) {
     this->id = id;
     this->damage = damage;
     this->speed = speed;
@@ -15,6 +15,7 @@ gameItems::RangeWeapon::RangeWeapon(int id, float damage, float speed, float ran
     this->rarity = rarity;
     this->name = name;
     this->classification = classification;
+    this->useable = useable;
 }
 
 void gameItems::drawRange() {
@@ -22,6 +23,17 @@ void gameItems::drawRange() {
     for (int i = 0; i < indexRangeWeapons; i++) {
         std::cout << i+1 << ") " << RangeWeaponArray[i].name << std::endl;
     }
+}
+
+void gameItems::drawMoreDataAboutRange(int index) {
+    std::cout << "\n*\t" << "-----------------------------" << std::endl;
+    std::cout << "*\t\t" << "Nazwa: " << RangeWeaponArray[index].name << std::endl;
+    std::cout << "*\t\t" << "Rzadkosc: " << RangeWeaponArray[index].classification << std::endl;
+    std::cout << "*\t\t" << "Obrazenia: " << RangeWeaponArray[index].damage << std::endl;
+    std::cout << "*\t\t" << "Szybkosc: " << RangeWeaponArray[index].speed << std::endl;
+    std::cout << "*\t\t" << "Zasieg: " << RangeWeaponArray[index].range << std::endl;
+    std::cout << "*\t\t" << "Wymagana Inteligenca: " << RangeWeaponArray[index].requiredInt << std::endl;
+    std::cout << "*\t"   << "-----------------------------" << std::endl;
 }
 
 std::string gameItems::getRangeData(int id, std::string what) {
@@ -56,6 +68,9 @@ std::string gameItems::getRangeData(int id, std::string what) {
         case 11728969269359993017:
             //classification
             return RangeWeaponArray[id].classification;
+        case 11430414146544851443:
+            //useable
+            return ((RangeWeaponArray[id].useable) ? "1" : "0");
     }
     return "-1";
 }

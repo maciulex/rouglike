@@ -1,6 +1,9 @@
 #include "../../../headers/debug/debug.hpp"
 #include "../../../headers/utilitis/items.hpp"
+#include "../../../headers/player.hpp"
 #include <iostream>
+
+extern Player player;
 
 void Debug::itemsSubMenu() {
     while (itemsSubMenuContent());
@@ -12,6 +15,7 @@ bool Debug::itemsSubMenuContent() {
     << "--------Menu items--------" << std::endl
     << "\t1) load iteams" << std::endl
     << "\t2) show items"  << std::endl
+    << "\t3) change item"  << std::endl
     << "\t0) back"        << std::endl;
 
     std::cin >> choice;
@@ -54,6 +58,20 @@ bool Debug::itemsSubMenuContent() {
 
             }
         break;
+        case 3:
+            changeIteamInInventory();
+        break;
     }
     return true;
+}
+void Debug::changeIteamInInventory() {
+    int index, id_type, id_item;
+    std::cout << "Index, id_type[0-3], id_iteam[0-?]" << std::endl;
+    std::cin >> index >> id_type >> id_item;
+    if (std::cin.fail()) {
+        std::cin.ignore(1000, '\n');
+        return;
+    }
+    player.variables.inventory[index][0] = id_item;
+    player.variables.inventory[index][1] = id_type;
 }

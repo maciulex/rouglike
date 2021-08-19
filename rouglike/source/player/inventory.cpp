@@ -27,10 +27,10 @@ void Player::drawInventory() {
         } else {
             switch (variables.inventory[i][1]) {
                 case 0:
-                    std::cout << "\t" << i+1 << ") " << gameItems::getWeaponData(0, variables.inventory[i][0], "name") << std::endl;
+                    std::cout << "\t" << i+1 << ") " << gameItems::getItemData(0, variables.inventory[i][0], "name") << std::endl;
                 break;
                 case 1:
-                    std::cout << "\t" << i+1 << ") " << gameItems::getWeaponData(1, variables.inventory[i][0], "name") << std::endl;
+                    std::cout << "\t" << i+1 << ") " << gameItems::getItemData(1, variables.inventory[i][0], "name") << std::endl;
                 break;
                 default:
                     std::cout << "\t" << i+1 << ") error" << std::endl;
@@ -108,33 +108,20 @@ void Player::dropItemForNewOne() {
 void Player::drawMoreDataAbout(int index) {
     switch (variables.inventory[index][1]) {
         case 0:
-            drawMoreDataAboutMelee(variables.inventory[index][0]);
+            gameItems::drawMoreDataAboutMelee(variables.inventory[index][0]);
         break;
         case 1:
-            drawMoreDataAboutRange(variables.inventory[index][0]);
+            gameItems::drawMoreDataAboutRange(variables.inventory[index][0]);
+        break;
+        case 2:
+            gameItems::drawMoreDataAboutHeal(variables.inventory[index][0]);
+        break;
+        case 3:
+            gameItems::drawMoreDataAboutBuff(variables.inventory[index][0]);
         break;
     }
 }
-void Player::drawMoreDataAboutMelee(int index) {
-    std::cout << "\n*\t" << "-----------------------------" << std::endl;
-    std::cout << "*\t\t" << "Nazwa: " << MeleeWeaponArray[index].name << std::endl;
-    std::cout << "*\t\t" << "Rzadkosc: " << MeleeWeaponArray[index].classification << std::endl;
-    std::cout << "*\t\t" << "Obrazenia: " << MeleeWeaponArray[index].damage << std::endl;
-    std::cout << "*\t\t" << "Szybkosc: " << MeleeWeaponArray[index].speed << std::endl;
-    std::cout << "*\t\t" << "Zasieg: " << MeleeWeaponArray[index].range << std::endl;
-    std::cout << "*\t\t" << "Wymagana sila: " << MeleeWeaponArray[index].requiredStrenght << std::endl;
-    std::cout << "*\t"   << "-----------------------------" << std::endl;
-}
-void Player::drawMoreDataAboutRange(int index) {
-    std::cout << "\n*\t" << "-----------------------------" << std::endl;
-    std::cout << "*\t\t" << "Nazwa: " << RangeWeaponArray[index].name << std::endl;
-    std::cout << "*\t\t" << "Rzadkosc: " << RangeWeaponArray[index].classification << std::endl;
-    std::cout << "*\t\t" << "Obrazenia: " << RangeWeaponArray[index].damage << std::endl;
-    std::cout << "*\t\t" << "Szybkosc: " << RangeWeaponArray[index].speed << std::endl;
-    std::cout << "*\t\t" << "Zasieg: " << RangeWeaponArray[index].range << std::endl;
-    std::cout << "*\t\t" << "Wymagana Inteligenca: " << RangeWeaponArray[index].requiredInt << std::endl;
-    std::cout << "*\t"   << "-----------------------------" << std::endl;
-}
+
 
 void Player::dropIteam(int index) {
     if (iteamIndexValidation(index)) return;
@@ -151,6 +138,14 @@ void Player::dropIteam(std::string index) {
 }
 bool Player::iteamIndexValidation(int index) {
     return (index < 0 || index >= variables.inventorySize);
+}
+bool Player::tryUseIteam(int index) {
+    if (gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "useable") == "0") return false;
+
+
+
+
+
 }
 
 

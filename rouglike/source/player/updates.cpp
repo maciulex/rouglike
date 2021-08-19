@@ -100,7 +100,8 @@ void Player::playerMove(int GoTox, int GoToy, bool draw) {
 
 void Player::updateHP(int x) {
     char blockChar = 254;
-    variables.health += x;
+    if (variables.health+x <= variables.maxHealth) variables.health += x;
+    else variables.health = variables.maxHealth;
     int hp1=0,hp2=0,hpM1=0,hpM2=0;
     for (int i = 0; i < variables.maxHealth; i++) {
         if (i < 5) {
@@ -124,7 +125,8 @@ void Player::updateHP(int x) {
 };
 void Player::updateMP(int x) {
     char blockChar = 254;
-    variables.mana += x;
+    if (variables.mana+x <= variables.maxMana) variables.mana += x;
+    else variables.mana = variables.maxMana;
     int mp1=0,mp2=0,mpM1=0,mpM2=0;
     for (int i = 0; i < variables.maxMana; i++) {
         if (i < 5) {

@@ -23,6 +23,8 @@ int main()
     srand(time(NULL));
 
     gameItems::loadIteams();
+
+    Board::drawBlank();
     Menu::menu();
     thread inputThread(Input);
     Board::drawBoard();

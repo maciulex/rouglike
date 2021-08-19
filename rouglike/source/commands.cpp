@@ -3,6 +3,7 @@
 #include "../headers/global.hpp"
 #include "../headers/utilitis/board.hpp"
 #include "../headers/player.hpp"
+#include "../headers/utilitis/menu.hpp"
 
 #include <math.h>
 #include <iostream>
@@ -41,19 +42,27 @@ int useCommand(string command) {
                     break;
                     case 3829121089218035508:
 //                      Uzyj
-
+                        try {
+                            if (!player.tryUseIteam(stoi(commands[i+1]))) cout << endl << "Nie mozna uzyc tego itema!" << endl;
+                        } catch (exception &e) {
+                            cout << "error nie poprawne dane";
+                        }
                     break;
                     case 5366797971342239317:
 //                      Szczegoly
-                        where = stoi(commands[i+1]);
-                        if (where < 1 || where > player.variables.inventorySize) {
-                            cout << "Out of range";
+                        try {
+                            where = stoi(commands[i+1]);
+                            if (where < 1 || where > player.variables.inventorySize) {
+                                cout << "Out of range";
+                                system("pause");
+                                continue;
+                            }
+                            where -= 1;
+                            player.drawMoreDataAbout(where);
                             system("pause");
-                            continue;
+                        } catch (exception &e) {
+                            cout << "error nie poprawne dane";
                         }
-                        where -= 1;
-                        player.drawMoreDataAbout(where);
-                        system("pause");
                     break;
                     case 14526079891305879776:
 //                      >
@@ -75,8 +84,8 @@ int useCommand(string command) {
             default:
                 switch (hash<string>{}(commands[i])) {
                     case 11809324432133475174:
-                        if (GameVariables.hud != 0) return 1;
 //                      ruch, move
+                        if (GameVariables.hud != 0) return 1;
 //                      cout << " ; " << commands[i] << " : " << commands[i+1] << " : " << commands[i+2] << " ; ";
 //                      system("pause");
                         if (commands[i+1] == "" || commands[i+2] == "") break;
@@ -120,6 +129,10 @@ int useCommand(string command) {
                         //przedmioty
                         GameVariables.hud = 1;
                         Board::drawGame();
+                    break;
+                    case 3427354763634449829:
+                        //menu
+                        Menu::menuInGame();
                     break;
                 }
             break;

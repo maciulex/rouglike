@@ -37,6 +37,44 @@ void Menu::menu() {
         break;
     }
 };
+void Menu::menuInGame() {
+    int choice;
+    std::cout << "-----MENU-----" << std::endl;
+    std::cout << "1) Nowa gra" << std::endl;
+    std::cout << "2) Zapisz gre" << std::endl;
+    std::cout << "3) Wczytaj gre" << std::endl;
+    std::cout << "4) Opcje" << std::endl;
+    std::cout << "5) Powrot" << std::endl;
+    std::cout << "6) Wyjdz" << std::endl;
+    std::cin >> choice;
+    if (std::cin.fail()) {
+        menuFail();
+    }
+    switch (choice) {
+        case 1:
+            newGame();
+        break;
+        case 2:
+
+        break;
+        case 3:
+
+        break;
+        case 5:
+            return;
+        case 6:
+            exit(0);
+        break;
+        case 7:
+            Debug::debug();
+        default:
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            system("cls");
+            menuInGame();
+        break;
+    }
+};
 void Menu::menuFail() {
     std::cin.clear();
     std::cin.ignore(1000, '\n');

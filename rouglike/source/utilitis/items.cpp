@@ -259,12 +259,16 @@ void gameItems::drawItems(int whichType) {
     std::cout << "By zobaczyc wiecej informacji wpisz \"showIteam |typ| |id|\"";
 }
 
-std::string gameItems::getWeaponData(int type, int id, std::string what) {
+std::string gameItems::getItemData(int type, int id, std::string what) {
     switch (type) {
         case 0:
             return getMeleeData(id, what);
         case 1:
             return getRangeData(id, what);
+        case 2:
+            return getHealData(id, what);
+        case 3:
+            return getBuffData(id, what);
     }
 }
 
