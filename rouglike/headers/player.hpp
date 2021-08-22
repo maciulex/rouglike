@@ -19,6 +19,7 @@ class Player {
         void updateVision(int x);
         void hitWall(int strength);
         void playerMove(int x = 0, int y = 0, bool draw = true);
+        int specialStatusFreeIndex();
         void restoreBlockedStatuses(int which);
         int getInventoryFreeIndex();
         void drawInventory();
@@ -28,6 +29,7 @@ class Player {
         void dropIteam(int index);
         void dropIteam(std::string index);
         bool tryUseIteam(int index);
+        void finalizeEffect(int effect, bool pernament = true, int latency = 0);
         bool iteamIndexValidation(int index);
         Player();
 };

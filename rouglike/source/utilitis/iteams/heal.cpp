@@ -5,7 +5,7 @@
 extern int indexHealWeapons;
 extern gameItems::HealPotion *HealPotionArray;
 
-gameItems::HealPotion::HealPotion(int id, std::string effect, int rarity, std::string name, std::string, std::string classification, int classficationInt, std::string optional_effect, bool useable) {
+gameItems::HealPotion::HealPotion(int id, std::string effect, int rarity, std::string name, std::string lore, std::string classification, int classficationInt, std::string optional_effect, bool useable) {
     this->id = id;
     this->effect = effect;
     this->rarity = rarity;

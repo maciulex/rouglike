@@ -32,6 +32,12 @@ void Player::drawInventory() {
                 case 1:
                     std::cout << "\t" << i+1 << ") " << gameItems::getItemData(1, variables.inventory[i][0], "name") << std::endl;
                 break;
+                case 2:
+                    std::cout << "\t" << i+1 << ") " << gameItems::getItemData(2, variables.inventory[i][0], "name") << std::endl;
+                break;
+                case 3:
+                    std::cout << "\t" << i+1 << ") " << gameItems::getItemData(3, variables.inventory[i][0], "name") << std::endl;
+                break;
                 default:
                     std::cout << "\t" << i+1 << ") error" << std::endl;
                 break;
@@ -142,10 +148,39 @@ bool Player::iteamIndexValidation(int index) {
 bool Player::tryUseIteam(int index) {
     if (gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "useable") == "0") return false;
 
-
-
-
-
+    std::string rawEffects[2]        = {gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "effect"),
+                                       gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "optional_effect")};
+    std::string effect, effectLatency;
+    bool effectPernament = true;
+    for (int i = 0; i < 2; i++) {
+        try {
+            for (int x = 0; x < rawEffects[i].length(); x++) {
+                if (rawEffects[i][x] == ',') {
+                    effectPernament = false;
+                    continue;
+                } else if (rawEffects[i][x] == '|') {
+                    if (effectPernament) finalizeEffect(std::stoi(effect));
+                    else finalizeEffect(std::stoi(effect), effectPernament, std::stoi(effectLatency));
+                    effect = "";
+                    effectLatency = "";
+                    effectPernament = true;
+                    continue;
+                }
+                if (effectPernament) effect += rawEffects[i][x];
+                else effectLatency += rawEffects[i][x];
+            }
+        } catch (_exception &e) {
+            std::cout << std::endl << "Pewien efekt nie zadzialal ):" << std::endl;
+        }
+    }
+}
+void Player::finalizeEffect(int effect, bool pernament, int latency) {
+    restoreBlockedStatuses(effect);
+    if (!pernament) {
+        int freeIndex = specialStatusFreeIndex();
+        variables.specialStatus[freeIndex][0] = effect+100;
+        variables.specialStatus[freeIndex][1] = latency;
+    }
 }
 
 

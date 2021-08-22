@@ -13,6 +13,11 @@ namespace Debug {
     bool itemsSubMenuContent();
     void changeIteamInInventory();
 
+    //playerSubFile
+    void playerSubMenu();
+    bool playerSubMenuContent();
+    void changeStatsMenu();
+
 }
 
 #endif

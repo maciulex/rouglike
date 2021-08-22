@@ -11,6 +11,7 @@ bool Debug::menu() {
     std::cout << "\n--------MENU--------" << std::endl
     << "\t1) get hash code"  << std::endl
     << "\t2) items sub menu" << std::endl
+    << "\t3) player"         << std::endl
     << "\t0) exit"           << std::endl;
 
     std::cin >> choice;
@@ -26,6 +27,9 @@ bool Debug::menu() {
         break;
         case 2:
             itemsSubMenu();
+        break;
+        case 3:
+            playerSubMenu();
         break;
     }
     return true;

@@ -25,15 +25,10 @@ Player::Player() {
 
 void Player::hitWall(int strength) {
     char choice;
-    int freeIndex, randomCase = 8;
+    int freeIndex = specialStatusFreeIndex(), randomCase = 8;
     float rarity = Game::getRarity();
     int inventoryIndex = getInventoryFreeIndex();
     //randomCase = rand();
-    for (int i = 0; i < 150; i++) {
-        if (variables.specialStatus[i][0] == -1) {
-            freeIndex = i;
-        }
-    }
     switch (strength) {
         case 1:
             switch (randomCase) {
@@ -112,6 +107,14 @@ void Player::hitWall(int strength) {
         break;
     }
 }
+int Player::specialStatusFreeIndex() {
+    for (int i = 0; i < 150; i++) {
+        if (variables.specialStatus[i][0] == -1) {
+            return i;
+        }
+    }
+    return -1;
+}
 void Player::restoreBlockedStatuses(int which) {
     switch(which) {
         case 1:
@@ -159,49 +162,49 @@ void Player::restoreBlockedStatuses(int which) {
         case 15:
             updateSP(3);
         break;
-        case 100:
+        case 101:
             updateHP(-1);
         break;
-        case 101:
+        case 102:
             updateHP(-2);
         break;
-        case 102:
+        case 103:
             updateHP(-3);
         break;
-        case 103:
+        case 104:
             updateMP(-1);
         break;
-        case 104:
+        case 105:
             updateMP(-2);
         break;
-        case 105:
+        case 106:
             updateMP(-3);
         break;
-        case 106:
+        case 107:
             updateST(-1);
         break;
-        case 107:
+        case 108:
             updateST(-2);
         break;
-        case 108:
+        case 109:
             updateST(-3);
         break;
-        case 109:
+        case 110:
             updateIT(-1);
         break;
-        case 110:
+        case 111:
             updateIT(-2);
         break;
-        case 111:
+        case 112:
             updateIT(-3);
         break;
-        case 112:
+        case 113:
             updateSP(-1);
         break;
-        case 113:
+        case 114:
             updateSP(-2);
         break;
-        case 114:
+        case 115:
             updateSP(-3);
         break;
     }

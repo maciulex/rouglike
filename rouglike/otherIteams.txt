@@ -1,14 +1,33 @@
 id:0
 type:heal
-classificationInt:1
+classificationInt:3
 name:Male leczenie
 lore:Jest w stanie lekko cie wyleczyc
 classificationText:Bardzo pospolite
+base_effect:1
+rarity:1
+-3--
+id:1
+type:heal
+classificationInt:3
+name:Maly odpoczynek
+lore:Jest w stanie dac ci troche many
+classificationText:Bardzo pospolite
+base_effect:4
+rarity:1
+-3--
+id:2
+type:heal
+classificationInt:3
+name:Mala regeneracja
+lore:Jest w stanie lekko cie wyleczyc i dac troche many
+classificationText:Bardzo pospolite
+base_effect:1|4
 rarity:1
 -3--
 id:0
 type:buff
-classificationInt:1
+classificationInt:4
 name:Troche sily
 lore:Jest w stanie dac ci troche sily na chwile
 buff:7,1

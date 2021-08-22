@@ -202,7 +202,7 @@ void gameItems::addOther(std::string data[8]) {
 //    << std::endl << data[6] << std::endl << data[7] << std::endl << data[8] << std::endl << data[9] << std::endl << data[10];
 
     int id = std::stoi(data[0]), classificationInt = std::stoi(data[2]), rarity=std::stoi(data[9]);
-    std::string type = data[1], name = data[3], classification = data[4], lore = data[6], buff = data[7], base_effect = data[8], optional_effect = data[9];
+    std::string type = data[1], name = data[3], classification = data[4], lore = data[5], buff = data[6], base_effect = data[7], optional_effect = data[8];
 
     switch (classificationInt) {
         case 3:
