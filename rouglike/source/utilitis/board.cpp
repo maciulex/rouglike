@@ -4,6 +4,7 @@
 #include "../../headers/global.hpp"
 #include "../../headers/player.hpp"
 #include "../../headers/utilitis/hud.hpp"
+#include "../../headers/fight/fight.hpp"
 #include "../../lib/color.hpp"
 
 using namespace std;
@@ -18,7 +19,7 @@ void Board::drawGame() {
         return;
     }
     if (GameVariables.battle) {
-
+        Fight::drawActuallMonster();
     } else {
         Board::drawBoard();
     }

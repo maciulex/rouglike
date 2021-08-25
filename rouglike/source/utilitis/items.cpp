@@ -43,7 +43,7 @@ void gameItems::loadOther() {
         {"rarity", 9}
     };
     std::fstream file;
-    file.open("otherIteams.txt", std::ios::in);
+    file.open("data/otherIteams.txt", std::ios::in);
     if (!file.good()) {
        std::cout << "\n\nBrak pliku z innymi przedmiotami!" << std::endl;
        system("pause");
@@ -133,7 +133,7 @@ void gameItems::loadWeapons() {
     };
 
     std::fstream file;
-    file.open("weapons.txt", std::ios::in);
+    file.open("data/weapons.txt", std::ios::in);
     if (!file.good()) {
        std::cout << "\n\nBrak pliku z bronmi!" << std::endl;
        system("pause");

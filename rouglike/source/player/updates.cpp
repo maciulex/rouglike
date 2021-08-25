@@ -154,7 +154,7 @@ void Player::updateST(int x) {
 };
 void Player::updateSP(int x) {
     variables.speed += x;
-    variables.speedString = to_string(variables.speed)+string(5-to_string(variables.speed).length(),32);
+    variables.speedString = to_string(variables.speed)+string(5-to_string(variables.speed).length(), 32);
 };
 void Player::updateIT(int x) {
     variables.itelligence += x;
