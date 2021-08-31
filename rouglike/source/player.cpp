@@ -21,6 +21,12 @@ Player::Player() {
     variables.attacksWarrior[0] = 1;
     variables.attacksWarrior[1] = 2;
     variables.attacksWarrior[2] = 3;
+    for (int i = 0; i < 150) {
+        variables.inventory[0][0] = -1;
+        variables.inventory[0][1] = -1;
+        variables.specialStatus[0][0] = -1;
+        variables.specialStatus[0][1] = -1;
+    }
 }
 
 void Player::hitWall(int strength) {

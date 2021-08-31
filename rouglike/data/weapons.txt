@@ -10,7 +10,7 @@ name:blade
 classificationText:Bardzo pospolite
 rarity:1
 -1--
-id:0
+id:1
 type:range
 damage:2
 speed:1.75

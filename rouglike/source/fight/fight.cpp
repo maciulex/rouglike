@@ -4,12 +4,73 @@
 #include "../../headers/global.hpp"
 #include "../../lib/color3.hpp"
 #include "../../headers/fight/monsters.hpp"
+#include "../../headers/utilitis/board.hpp"
+#include "../../headers/player.hpp"
 
 #include <iostream>
+#include <string>
+#include <time.h>
+#include <windows.h>
+#include <thread>
 
 extern Monsters::MonsterDataStruct MonstersData;
+extern Player player;
+
+void Fight::engineFight() {
+    prepareFight();
+
+//    while (GameVariables.battle) {
+//        if (FightData.enemiesNumber == 0) {
+//            endBattle();
+//        }
+//    }
+    //fight.detach();
+}
+
+void Fight::endBattle() {
+    GameVariables.battle = false;
+    GameVariables.hud = 0;
+    Game::setSpecialMessages("Walka zakonczona!", 0);
+}
+
+void Fight::nextMonster() {
+    FightData.actuallAttacker += 1;
+    if (FightData.actuallAttacker == FightData.enemiesNumber) FightData.actuallAttacker = 0;
+    Board::drawGame();
+}
+
+void Fight::killMonster(int indeks) {
+    if (indeks < 0 || indeks >= FightData.enemiesNumber) return;
+
+    for (int i = indeks; i < FightData.enemiesNumber-1; i++) {
+        FightData.monsters[i] = FightData.monsters[i+1];
+    }
+    Game::setSpecialMessages("Potwor zostal zabity!", 0);
+    FightData.enemiesNumber -= 1;
+    nextMonster();
+}
+
+void Fight::generateFightCombination() {
+    for (int i = 0; i < 32; i++) FightData.combination[i] = 0;
+
+    FightData.amountOfCombintaions = GameVariables.difficulty*((FightData.endDifficulty > 15) ? 13 : FightData.endDifficulty);
+
+    if (player.variables.health <= 0) {
+        Game::playerDead();
+    }
+}
+
+void Fight::addFightDirectory(int directory) {
+    if (directory < 1 || directory > 4) return;
+    if (FightData.combinationIndeks >= 32) return;
+
+    FightData.combination[FightData.combinationIndeks] = directory;
+
+    FightData.combinationIndeks += 1;
+}
 
 void Fight::prepareFight(float localDifficultyModifier) {
+    srand(time(NULL));
     FightData.difficultyModifier = localDifficultyModifier;
     FightData.endDifficulty = Game::getDifficulty()*localDifficultyModifier+GameVariables.level;
     FightData.enemiesNumber = rand()%3+1;
@@ -27,8 +88,25 @@ void Fight::prepareMonsters() {
     for (int i = 0; i < FightData.enemiesNumber; i++) {
         Monsters::Monsters localMonster;
         localMonster = MonstersData.MonstersArray[getMonsterID(FightData.endDifficulty)];
+        localMonster.lvl = rand()%localMonster.max_lvl+localMonster.min_lvl;
+        if (GameVariables.plusMonsterRand) {
+            float lvlModyfier = .5;
+            localMonster.hp          = localMonster.hp          + ( (rand()%localMonster.lvl) * lvlModyfier);
+            localMonster.mana        = localMonster.mana        + ( (rand()%localMonster.lvl) * lvlModyfier);
+            localMonster.baseDef     = localMonster.baseDef     + ( (rand()%localMonster.lvl) * lvlModyfier);
+            localMonster.distanceDef = localMonster.distanceDef + ( (rand()%localMonster.lvl) * lvlModyfier);
+            localMonster.meleeDef    = localMonster.meleeDef    + ( (rand()%localMonster.lvl) * lvlModyfier);
+            localMonster.speed       = localMonster.speed       + ( (rand()%localMonster.lvl) * lvlModyfier);
+            localMonster.strenght    = localMonster.strenght    + ( (rand()%localMonster.lvl) * lvlModyfier);
+        }
+//        for (int i = 0; i < 100; i++) {
+//            std::cout << (rand()%localMonster.showUpRange+1)+player.variables.eyes/(rand()%player.variables.eyes+1) << std::endl;
+//        }
+//        system("pause");
 
-        localMonster.showUpRange = rand()%localMonster.showUpRange+1;
+
+        localMonster.showUpRange = (rand()%localMonster.showUpRange+1)+player.variables.eyes/(rand()%player.variables.eyes+1);
+
 
         FightData.monsters[i] = localMonster;
     }
@@ -44,8 +122,8 @@ void Fight::drawMonsterAddictionalData() {
     char *l1s1 = "\t---------------------------------------------------------------------------------------------------- \n";
     char *l2s1 = "\t|  Nazwa: ";
     char *l2s2 = "                                           Odleglosc: ";
-    char *l3s1 = "\t|                                                                             Poziom:         ";
-    char *l4s1 = "\t|                                                                                             ";
+    char *l3s1 = "\t|                                                                             Poziom: ";
+    char *l4s1 = "\t|  ";
     char *l5s1 = "\t|                                                                                             ";
     char *l6s1 = "\t|  ";
     char *l6s2 = "                                         ";
@@ -54,15 +132,31 @@ void Fight::drawMonsterAddictionalData() {
     std::cout
     << l1s1
     << l2s1 << FightData.monsters[FightData.actuallAttacker].getMonsterName(25, true) << l2s2 << FightData.monsters[FightData.actuallAttacker].getMonsterShowUpRange(5, true) << endLine
-    << l3s1 << endLine
-    << l4s1 << endLine
+    << l3s1 << FightData.monsters[FightData.actuallAttacker].getMonsterLevel(8, true) << endLine
+    << l4s1; drawMonsterHp(); std::cout << endLine
     << l5s1 << endLine
     << l6s1 << getSpecialMessageFight(0, 50, true) << l6s2 << endLine
-    << l7s1 << getSpecialMessageFight(1, 50, true) << l7s2 << FightData.actuallAttacker+1 << "/" << FightData.enemiesNumber+1 << " " << endLine
+    << l7s1 << getSpecialMessageFight(1, 50, true) << l7s2 << FightData.actuallAttacker+1 << "/" << FightData.enemiesNumber << " " << endLine
     << l1s1 << "\n";
 }
 
-
+void Fight::drawMonsterHp() {
+    int length = 9;
+    std::cout << "HP: |";
+    for (int i = 0; i < 30; i++) {
+        if (FightData.monsters[FightData.actuallAttacker].hp < i) break;
+        std::cout << " " << dye::red(char(219));
+        length += 2;
+    }
+    if (FightData.monsters[FightData.actuallAttacker].hp <= 30) {
+        std::cout << " |   ";
+    } else {
+        std::cout << " |" << dye::red("+") << "| ";
+    }
+    if (length < 90) {
+        std::cout << std::string(90-length, 32);
+    }
+}
 
 int Fight::getMonsterID(float lvl) {
     int id = 0, currentIdLvl_min,  currentIdLvl_max;
@@ -81,10 +175,12 @@ int Fight::getMonsterID(float lvl) {
 }
 
 std::string Fight::getSpecialMessageFight(int which, int lenght, bool overwrite) {
-    if (lenght == -1) return GameVariables.specialMesseges[which];
-    if (lenght < GameVariables.specialMesseges[which].length()) {
-        if (overwrite) return GameVariables.specialMesseges[which].substr(0, lenght);
-        return GameVariables.specialMesseges[which];
+    std::string specialMessage = GameVariables.specialMesseges[which];
+    GameVariables.specialMesseges[which] = "";
+    if (lenght == -1) return specialMessage;
+    if (lenght < specialMessage.length()) {
+        if (overwrite) return specialMessage.substr(0, lenght);
+        return specialMessage;
     }
-    return GameVariables.specialMesseges[which] + std::string(lenght-GameVariables.specialMesseges[which].length(), 32);
+    return specialMessage + std::string(lenght-specialMessage.length(), 32);
 }

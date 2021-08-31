@@ -19,7 +19,7 @@ namespace Monsters {
 
     class Monsters {
         public:
-            std::string name, lore, graphic, hpString;
+            std::string name, lore, graphic;
             int id, lvl, min_lvl, max_lvl, showUpRange;
             float hp, mana, strenght, speed, range, baseDef, distanceDef, meleeDef;
             bool rangeFighter, meleeFighter;
@@ -46,6 +46,7 @@ namespace Monsters {
             );
             void drawMonster();
             std::string getMonsterName(int length = -1, bool overwrite = true);
+            std::string getMonsterLevel(int length = -1, bool overwrite = true);
             std::string getMonsterShowUpRange(int length = -1, bool overwrite = true);
     };
 }

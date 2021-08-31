@@ -15,6 +15,7 @@
 #include "headers/utilitis/hud.hpp"
 #include "headers/utilitis/menu.hpp"
 #include "headers/utilitis/fight.hpp"
+#include "headers/fight/attacks.hpp"
 
 using namespace std;
 
@@ -26,11 +27,10 @@ int main()
 
     Monsters::loadMonsters();
     gameItems::loadIteams();
+    Attacks::loadAttacks();
 
     Board::drawBlank();
     Menu::menu();
-
-    Fight::prepareFight();
 
     thread inputThread(Input);
     Board::drawGame();

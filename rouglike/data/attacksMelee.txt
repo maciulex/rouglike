@@ -1,0 +1,28 @@
+name:Atak piescia
+lore:Najzwyklejszy atak
+lvl:1
+min_lvl:1
+rarity:1
+meleeDamage:1
+distanceDamage:0
+meleeDef:0
+distanceDef:0
+speed:0.5
+range:1
+chanceOfWork:1
+attackType:0
+----
+name:Atak lokcia
+lore:Najzwyklejszy atak
+lvl:1
+min_lvl:1
+rarity:1
+meleeDamage:1.7
+distanceDamage:0
+meleeDef:0
+distanceDef:0
+speed:0.6
+range:0.5
+chanceOfWork:1
+attackType:0
+----

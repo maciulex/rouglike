@@ -4,6 +4,7 @@
 #include "../headers/utilitis/board.hpp"
 #include "../headers/player.hpp"
 #include "../headers/utilitis/menu.hpp"
+#include "../headers/debug/debug.hpp"
 
 #include <math.h>
 #include <iostream>
@@ -32,7 +33,9 @@ int useCommand(string command) {
                switch (hash<string>{}(commands[i])) {
                     case 5772833367524736768:
 //                      powrot
-                        GameVariables.hud = 0;
+                        goBack:
+                        if (GameVariables.battle) GameVariables.hud = 3;
+                        else GameVariables.hud = 0;
                         Board::drawGame();
                         return 0;
                     break;
@@ -77,11 +80,53 @@ int useCommand(string command) {
                         Board::drawGame();
                     break;
                 }
+                goto defaultSwitch;
             break;
             case 2:
+                goto defaultSwitch;
+            break;
+            case 3:
+                switch (hash<string>{}(commands[i])) {
+                    case 16798379603612784844:
+                        //wojownik
+                        GameVariables.hud = 4;
 
+                    break;
+                    case 17053659922084647272:
+                        //mag
+                        GameVariables.hud = 5;
+                    break;
+                    case 16341394509686110479:
+                        //uciekaj
+
+                    break;
+                }
+            break;
+            case 4:
+                switch (hash<string>{}(commands[i])) {
+                    case 16770126819965438330:
+//                      atak
+                    break;
+                    case 5772833367524736768:
+//                      powrot
+                        goto goBack;
+                    break;
+                }
+            break;
+            case 5:
+                switch (hash<string>{}(commands[i])) {
+                    case 16770126819965438330:
+//                      atak
+
+                    break;
+                    case 5772833367524736768:
+//                      powrot
+                        goto goBack;
+                    break;
+                }
             break;
             default:
+                defaultSwitch:
                 switch (hash<string>{}(commands[i])) {
                     case 11809324432133475174:
 //                      ruch, move
@@ -133,6 +178,9 @@ int useCommand(string command) {
                     case 3427354763634449829:
                         //menu
                         Menu::menuInGame();
+                    break;
+                    case 6281556121102617670:
+                        Debug::debug();
                     break;
                 }
             break;

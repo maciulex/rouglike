@@ -20,7 +20,7 @@ void Hud::drawHud() {
     char *l6s1 = "\t|   |------------| |------------| |------------| |------------| |------------|       sp: ";
     char *l7s1 = "\t|                                                                                    st: ";
     char *l8s1 = "\t|                                                                                    it: ";
-    // 0 = standard 1 - ekwipunek 2 - wyrzucenie broni, 3 - walka main menu, 4 - menu walki
+    // 0 = standard 1 - ekwipunek 2 - wyrzucenie broni, 3 - walka main menu, 4 - menu wojownika, 5 - menu maga
     switch(GameVariables.hud) {
         case 0:
             l5s1 = "\t|   | Walcz      | | Cwicz      | | Przedmioty | | Statystyki | |    Menu    |           ";
@@ -32,10 +32,13 @@ void Hud::drawHud() {
             l5s1 = "\t|   | Wyrzuc     | | Szczegoly  | |     <      | |      >     | |   Powrot   |           ";
         break;
         case 3:
-            l5s1 = "\t|   | Wojownik   | | Mag        | | Uciekaj    | | Itemy      | | Powrot     |           ";
+            l5s1 = "\t|   | Wojownik   | | Mag        | | Uciekaj    | | Przedmioty | |   Wiecej   |           ";
         break;
         case 4:
-            l5s1 = "\t|   | Atak       | | Rozmowa    | | Odnow sily | | Odnow mane | |   Powrot   |           ";
+            l5s1 = "\t|   | Atak       | | Obrona     | | Odnow sily | | Przedmioty | |   Powrot   |           ";
+        break;
+        case 5:
+            l5s1 = "\t|   | Atak       | | Obrona     | | Odnow mane | | Przedmioty | |   Powrot   |           ";
         break;
     }
     cout << string(l1s1)+l2s1 << dye::red(player.variables.healthString[0])<<player.variables.healthString[1] << string(endLine)+l3s1

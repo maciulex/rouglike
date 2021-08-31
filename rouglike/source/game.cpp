@@ -7,6 +7,11 @@
 
 extern Player player;
 
+void Game::playerDead() {
+
+
+}
+
 void Game::generateWord() {
 ////    cout << GameVariables.width;
     if (GameVariables.seed == "falseNotNULLSeed"){

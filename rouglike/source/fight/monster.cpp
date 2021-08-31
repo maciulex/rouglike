@@ -187,6 +187,16 @@ std::string Monsters::Monsters::getMonsterName(int endLength, bool overwrite) {
     return name + std::string(endLength-name.length(), 32);
 }
 
+std::string Monsters::Monsters::getMonsterLevel(int endLength, bool overwrite) {
+    std::string levelString = std::to_string(lvl);
+    if (endLength == -1) return levelString;
+    if (endLength < levelString.length()) {
+        if (overwrite) return levelString.substr(0, endLength);
+        return levelString;
+    }
+    return levelString + std::string(endLength-levelString.length(), 32);
+}
+
 std::string Monsters::Monsters::getMonsterShowUpRange(int endLength, bool overwrite) {
     std::string showUpRangeString = std::to_string(showUpRange);
     if (endLength == -1) return showUpRangeString;

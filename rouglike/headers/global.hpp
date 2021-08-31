@@ -13,7 +13,7 @@
     class globalsGameVariables {
         public:
         int **board, width, height, hud = 0, level = 0, difficulty;
-        bool fastDrawBoard = false, battle = false;
+        bool fastDrawBoard = false, battle = false, plusMonsterRand = true;
         std::string seed, specialMesseges[5] = {""};
     };
 #endif

@@ -2,6 +2,7 @@
 #include "../headers/game.hpp"
 #include "../headers/player.hpp"
 #include "../headers/global.hpp"
+#include "../headers/fight/fight.hpp"
 #include "../headers/utilitis/board.hpp"
 #include "../headers/commands.hpp"
 
@@ -11,6 +12,8 @@
 
 extern Player player;
 
+bool dataGoToFight = false;
+
 void Input() {
     std::string command = "";
     while (ProgramOpenState) {
@@ -18,27 +21,29 @@ void Input() {
         bool commandB = true;
         input = getch();
         if (BlockInputThread) continue;
-//        if (fightDir != -1) {
-//            switch ((int)input) {
-//                case 77:
-//                    fightInput = 1;
-//                    cout << (char)16 << endl;
-//                break;
-//                case 75:
-//                    fightInput = 2;
-//                    cout << (char)17 << endl;
-//                break;
-//                case 72:
-//                    fightInput = 3;
-//                    cout << (char)30 << endl;
-//                break;
-//                case 80:
-//                    fightInput = 4;
-//                    cout << (char)31 << endl;
-//                break;
-//            }
-//            continue;
-//        }
+
+        if (dataGoToFight) {
+            switch ((int)input) {
+                case 77:
+                    Fight::addFightDirectory(1);
+                    std::cout << (char)16 << std::endl;
+                break;
+                case 75:
+                    Fight::addFightDirectory(2);
+                    std::cout << (char)17 << std::endl;
+                break;
+                case 72:
+                    Fight::addFightDirectory(3);
+                    std::cout << (char)30 << std::endl;
+                break;
+                case 80:
+                    Fight::addFightDirectory(4);
+                    std::cout << (char)31 << std::endl;
+                break;
+            }
+            continue;
+        }
+
         switch ((int)input) {
             case 77:
                 //cout << "prawo" << endl;

@@ -6,5 +6,6 @@
         void setSpecialMessages(std::string text, int row);
         float getRarity();
         float getDifficulty();
+        void playerDead();
     }
 #endif

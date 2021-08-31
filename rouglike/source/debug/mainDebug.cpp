@@ -1,4 +1,6 @@
 #include "../../headers/debug/debug.hpp"
+
+#include "../../headers/fight/fight.hpp"
 #include <iostream>
 
 
@@ -12,6 +14,7 @@ bool Debug::menu() {
     << "\t1) get hash code"  << std::endl
     << "\t2) items sub menu" << std::endl
     << "\t3) player"         << std::endl
+    << "\t4) start battle"   << std::endl
     << "\t0) exit"           << std::endl;
 
     std::cin >> choice;
@@ -31,6 +34,8 @@ bool Debug::menu() {
         case 3:
             playerSubMenu();
         break;
+        case 4:
+            Fight::engineFight();
     }
     return true;
 }
