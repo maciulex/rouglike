@@ -7,20 +7,24 @@
 Attacks::AttacksDataStruct AttacksData;
 
 std::unordered_map<std::string, int> baseAttackConponentsId = {
-    {"name",            0},
-    {"lore",            1},
-    {"lvl",             2},
-    {"min_lvl",         3},
-    {"rarity",          4},
-    {"meleeDamage",     5},
-    {"distanceDamage",  6},
-    {"meleeDef",        7},
-    {"distanceDef",     8},
-    {"speed",           9},
-    {"range",           10},
-    {"chanceOfWork",    11},
-    {"attackType",      12},
-    {"costs",           13}
+    {"name",                0},
+    {"lore",                1},
+    {"lvl",                 2},
+    {"min_lvl",             3},
+    {"rarity",              4},
+    {"meleeDamage",         5},
+    {"distanceDamage",      6},
+    {"meleeDef",            7},
+    {"distanceDef",         8},
+    {"speed",               9},
+    {"range",               10},
+    {"chanceOfWork",        11},
+    {"attackType",          12},
+    {"costs",               13},
+    {"meleeWeaponRequired", 14},
+    {"meleeWeaponBust",     15},
+    {"rangeWeaponRequired", 16},
+    {"rangeWeaponBoost",    17}
 };
 
 void Attacks::loadAttacks() {
@@ -82,6 +86,12 @@ void Attacks::addAttackMelee(std::string data[20]) {
     // 0 - meleeDamage, 1 - distanceDamage, 2 - meleeDef, 3 - distanceDef, 4 - speed, 5 - range, 6 - chanceOfWork
     float floatData[7]  = {std::stof(data[5]), std::stof(data[6]), std::stof(data[7]), std::stof(data[8]), std::stof(data[9]), std::stof(data[10]), std::stof(data[11])};
 
+    // 0 - meleeWeaponRequired, 1 - rangeWeaponRequired
+    bool boolData[2] = {((data[14] == "" || data[14] == "false" || data[14] == "0") ? false : true), ((data[16] == "" || data[16] == "false" || data[16] == "0") ? false : true)};
+
+    // 0 - meleeWeaponBust, 1 - rangeWeaponBoost
+    float bustData[2] = {((data[15] == "" || data[15][0] == ' ') ? 0 : std::stof(data[15])), ((data[17] == "" || data[17][0] == ' ') ? 0 : std::stof(data[17]))};
+
     if (stringData[13] != "" && stringData[13] != " ") {
         std::string costData = "";
         int costIndex = 0;
@@ -97,7 +107,7 @@ void Attacks::addAttackMelee(std::string data[20]) {
     AttacksData.MeleeAttacksArray[AttacksData.MeleeAttacksIndeks] = MeleeAttack (
         stringData[0], stringData[1], intData[0], intData[1], intData[2],
         floatData[0], floatData[1], floatData[2], floatData[3], floatData[4], floatData[5],
-        floatData[6], costs
+        floatData[6], costs, boolData[0], bustData[0], boolData[1], bustData[1]
     );
     AttacksData.MeleeAttacksIndeks += 1;
 }
@@ -152,6 +162,12 @@ void Attacks::addAttackRange(std::string data[20]) {
     // 0 - meleeDamage, 1 - distanceDamage, 2 - meleeDef, 3 - distanceDef, 4 - speed, 5 - range, 6 - chanceOfWork
     float floatData[7]  = {std::stof(data[5]), std::stof(data[6]), std::stof(data[7]), std::stof(data[8]), std::stof(data[9]), std::stof(data[10]), std::stof(data[11])};
 
+    // 0 - meleeWeaponRequired, 1 - rangeWeaponRequired
+    bool boolData[2] = {((data[14] == "" || data[14] == "false" || data[14] == "0") ? false : true), ((data[16] == "" || data[16] == "false" || data[16] == "0") ? false : true)};
+
+    // 0 - meleeWeaponBust, 1 - rangeWeaponBoost
+    float bustData[2] = {((data[15] == "" || data[15][0] == ' ') ? 0 : std::stof(data[15])), ((data[17] == "" || data[17][0] == ' ') ? 0 : std::stof(data[17]))};
+
     if (stringData[13] != "" && stringData[13] != " ") {
         std::string costData = "";
         int costIndex = 0;
@@ -167,7 +183,7 @@ void Attacks::addAttackRange(std::string data[20]) {
     AttacksData.RangeAttacksArray[AttacksData.RangeAttacksIndeks] = RangeAttack (
         stringData[0], stringData[1], intData[0], intData[1], intData[2],
         floatData[0], floatData[1], floatData[2], floatData[3], floatData[4], floatData[5],
-        floatData[6], costs
+        floatData[6], costs, boolData[0], bustData[0], boolData[1], bustData[1]
     );
     AttacksData.RangeAttacksIndeks += 1;
 }
@@ -185,7 +201,11 @@ Attacks::MeleeAttack::MeleeAttack (
                 float speed,
                 float range,
                 float chanceOfWork,
-                int *costs
+                int *costs,
+                bool meleeWeaponRequired,
+                float meleeWeaponBust,
+                bool rangeWeaponRequired,
+                float rangeWeaponBoost
             ) {
     this->name = name;
     this->lore = lore;
@@ -200,6 +220,10 @@ Attacks::MeleeAttack::MeleeAttack (
     this->range = range;
     this->chanceOfWork = chanceOfWork;
     this->costs = costs;
+    this->meleeWeaponRequired = meleeWeaponRequired;
+    this->meleeWeaponBust = meleeWeaponBust;
+    this->rangeWeaponRequired = rangeWeaponRequired;
+    this->rangeWeaponBoost = rangeWeaponBoost;
 }
 Attacks::RangeAttack::RangeAttack (
                 std::string name,
@@ -214,7 +238,11 @@ Attacks::RangeAttack::RangeAttack (
                 float speed,
                 float range,
                 float chanceOfWork,
-                int *costs
+                int *costs,
+                bool meleeWeaponRequired,
+                float meleeWeaponBust,
+                bool rangeWeaponRequired,
+                float rangeWeaponBoost
             ) {
     this->name = name;
     this->lore = lore;
@@ -229,5 +257,9 @@ Attacks::RangeAttack::RangeAttack (
     this->range = range;
     this->chanceOfWork = chanceOfWork;
     this->costs = costs;
+    this->meleeWeaponRequired = meleeWeaponRequired;
+    this->meleeWeaponBust = meleeWeaponBust;
+    this->rangeWeaponRequired = rangeWeaponRequired;
+    this->rangeWeaponBoost = rangeWeaponBoost;
 }
 

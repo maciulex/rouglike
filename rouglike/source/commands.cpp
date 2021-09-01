@@ -100,6 +100,9 @@ int useCommand(string command) {
                         //uciekaj
 
                     break;
+                    case 16249881897017512211:
+                        goto przedmiotyCase;
+                    break;
                 }
             break;
             case 4:
@@ -172,6 +175,7 @@ int useCommand(string command) {
                     break;
                     case 16249881897017512211:
                         //przedmioty
+                        przedmiotyCase:
                         GameVariables.hud = 1;
                         Board::drawGame();
                     break;
