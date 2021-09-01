@@ -28,7 +28,7 @@ namespace Attacks {
             std::string name, lore;
             int lvl, min_lvl, rarity;
             float meleeDamage, distanceDamage, meleeDef, distanceDef, speed, range, chanceOfWork;
-            int costs[20];
+            int *costs;
         public:
             std::string getAttackName(int length = -1, bool overwrite = true);
             std::string getAttackLevel(int length = -1, bool overwrite = true);
@@ -49,7 +49,7 @@ namespace Attacks {
                 float speed = 1,
                 float range = 1,
                 float chanceOfWork = 1,
-                int costs[20] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
+                int *costs = new int [1]
             );
     };
     class RangeAttack : private Attack {
@@ -67,7 +67,7 @@ namespace Attacks {
                 float speed = 1,
                 float range = 1,
                 float chanceOfWork = 1,
-                int costs[20]
+                int *costs = new int [1]
             );
     };
 }
