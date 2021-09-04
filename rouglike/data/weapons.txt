@@ -6,7 +6,7 @@ range:5
 classificationInt:1
 requiredStrenght:1
 requiredItelligence:1
-name:blade
+name:Ostrze
 classificationText:Bardzo pospolite
 rarity:1
 -1--
@@ -18,7 +18,7 @@ range:20
 classificationInt:2
 requiredStrenght:1
 requiredItelligence:1
-name:bow
+name:Luk
 classificationText:Bardzo pospolite
 rarity:1
 -2--

@@ -13,10 +13,17 @@ extern Player player;
 
 void Board::drawGame() {
     drawBlank();
-    if (GameVariables.hud == 1) {
-        player.drawInventory();
-        Hud::drawHud();
-        return;
+    switch (GameVariables.hud) {
+        case 1:
+            player.drawInventory();
+            Hud::drawHud();
+            return;
+        break;
+        case 6:
+            GameVariables.hud = 3;
+            drawGame();
+            return;
+        break;
     }
     if (GameVariables.battle) {
         Fight::drawActuallMonster();

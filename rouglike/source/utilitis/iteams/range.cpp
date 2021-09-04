@@ -72,5 +72,5 @@ std::string gameItems::getRangeData(int id, std::string what) {
             //useable
             return ((RangeWeaponArray[id].useable) ? "1" : "0");
     }
-    return "-1";
+    return "-2";
 }

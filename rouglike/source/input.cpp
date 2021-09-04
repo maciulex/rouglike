@@ -13,6 +13,7 @@
 extern Player player;
 
 bool dataGoToFight = false;
+extern Fight::FightDataStruct FightData;
 
 void Input() {
     std::string command = "";
@@ -21,28 +22,6 @@ void Input() {
         bool commandB = true;
         input = getch();
         if (BlockInputThread) continue;
-
-        if (dataGoToFight) {
-            switch ((int)input) {
-                case 77:
-                    Fight::addFightDirectory(1);
-                    std::cout << (char)16 << std::endl;
-                break;
-                case 75:
-                    Fight::addFightDirectory(2);
-                    std::cout << (char)17 << std::endl;
-                break;
-                case 72:
-                    Fight::addFightDirectory(3);
-                    std::cout << (char)30 << std::endl;
-                break;
-                case 80:
-                    Fight::addFightDirectory(4);
-                    std::cout << (char)31 << std::endl;
-                break;
-            }
-            continue;
-        }
 
         switch ((int)input) {
             case 77:
@@ -91,5 +70,35 @@ void Input() {
             command += input;
             std::cout << input;
         }
+    }
+}
+void InputFight() {
+    while (GameVariables.battle && !FightData.fastEndEnter) {
+        char input;
+        input = getch();
+        switch ((int)input) {
+            case 13:
+                FightData.fastEndEnter = true;
+                //FightData.acutalInputCombination-=1;
+                //system("pause");
+            break;
+            case 77:
+                Fight::addFightDirectory(1);
+                std::cout << (char)16;
+            break;
+            case 75:
+                Fight::addFightDirectory(2);
+                std::cout << (char)17;
+            break;
+            case 72:
+                Fight::addFightDirectory(3);
+                std::cout << (char)30;
+            break;
+            case 80:
+                Fight::addFightDirectory(4);
+                std::cout << (char)31;
+            break;
+        }
+        //FightData.acutalInputCombination+=1;
     }
 }

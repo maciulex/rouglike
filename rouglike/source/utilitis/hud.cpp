@@ -40,6 +40,9 @@ void Hud::drawHud() {
         case 5:
             l5s1 = "\t|   | Atak       | | Obrona     | | Odnow mane | | Przedmioty | |   Powrot   |           ";
         break;
+        case 6:
+            l5s1 = "\t|   | Uzyj       | | Zapomnij   | | Cwicz      | | Przenies   | |   Powrot   |           ";
+        break;
     }
     cout << string(l1s1)+l2s1 << dye::red(player.variables.healthString[0])<<player.variables.healthString[1] << string(endLine)+l3s1
     << dye::red(player.variables.healthString[2]) << player.variables.healthString[3] << endLine

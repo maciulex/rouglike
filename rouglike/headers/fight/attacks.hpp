@@ -33,8 +33,9 @@ namespace Attacks {
             std::string getAttackName(int length = -1, bool overwrite = true);
             std::string getAttackLevel(int length = -1, bool overwrite = true);
             std::string getAttackRange(int length = -1, bool overwrite = true);
+            std::string getAttackBaseData(std::string which);
     };
-    class MeleeAttack : private Attack {
+    class MeleeAttack : public Attack {
         public:
             MeleeAttack(
                 std::string name = "noName",
@@ -56,7 +57,7 @@ namespace Attacks {
                 float rangeWeaponBoost = 0
             );
     };
-    class RangeAttack : private Attack {
+    class RangeAttack : public Attack {
         public:
             RangeAttack (
                 std::string name = "noName",

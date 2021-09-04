@@ -21,7 +21,7 @@
         void loadOther();
         void drawItems(int whichType);
         std::string getItemData(int type, int id, std::string what);
-        // type [0] melee [1] range
+        // type [0] melee [1] range, [2] heal 3[range]
 
 
         //melee.cpp

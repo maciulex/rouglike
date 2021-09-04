@@ -43,6 +43,9 @@ bool Debug::menu() {
 void Debug::getHashCode() {
     std::string toHash;
     std::cout << "\nPodaj ciag ktory ma byc hashem" << std::endl;
-    std::cin >> toHash;
-    std::cout << std::hash<std::string>{}(toHash);
+    for (;;) {
+        std::cin >> toHash;
+        if (toHash == "0") break;
+        std::cout << std::hash<std::string>{}(toHash) << "\n";
+    }
 }

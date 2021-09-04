@@ -29,11 +29,16 @@ int main()
     gameItems::loadIteams();
     Attacks::loadAttacks();
 
+    player.variables.attacksWarrior[0] = 0;
+    player.variables.attacksWarrior[1] = 1;
+
     Board::drawBlank();
     Menu::menu();
 
     thread inputThread(Input);
     Board::drawGame();
+
+    Fight::engineFight();
 
     while (ProgramOpenState) {
         Sleep(500);

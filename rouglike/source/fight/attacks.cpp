@@ -33,7 +33,6 @@ void Attacks::loadAttacks() {
     loadAttacksMelee();
     loadAttacksRange();
 
-    system("pause");
 }
 
 void Attacks::loadAttacksMelee() {
@@ -186,6 +185,67 @@ void Attacks::addAttackRange(std::string data[20]) {
         floatData[6], costs, boolData[0], bustData[0], boolData[1], bustData[1]
     );
     AttacksData.RangeAttacksIndeks += 1;
+}
+
+std::string Attacks::Attack::getAttackBaseData(std::string which) {
+    std::string dataHolder = "";
+    switch (std::hash<std::string>{}(which)) {
+        case 10420554295983197538:
+//      name
+            return name;
+        case 12580124215795132112:
+//      lore
+            return name;
+        case 15869450025595216493:
+//      lvl
+            return std::to_string(lvl);
+        case 11412875497007605674:
+//      min_lvl
+            return std::to_string(min_lvl);
+        case 13862207918752884272:
+//      rarity
+            return std::to_string(rarity);
+        case 1738818891027217700:
+//      costs
+            for (int i = 0; i < sizeof(costs)/sizeof(costs[0]); i++) {
+                dataHolder+=std::to_string(costs[i])+";";
+            }
+            return dataHolder;
+        break;
+        case 7751017261663934291:
+//      meleeDamage
+            return std::to_string(meleeDamage);
+        case 12906888805078331497:
+//      distanceDamage
+            return std::to_string(distanceDamage);
+        case 13340486775697793372:
+//      meleeDef
+            return std::to_string(meleeDef);
+        case 6144278194197645852:
+//      distanceDef
+            return std::to_string(distanceDef);
+        case 4878149271039768326:
+//      speed
+            return std::to_string(speed);
+        case 2914616072447184159:
+//      range
+            return std::to_string(range);
+        case 7541432946876866494:
+//      chanceOfWork
+            return std::to_string(chanceOfWork);
+        case 10254150431226174848:
+//      meleeWeaponBust
+            return std::to_string(meleeWeaponBust);
+        case 5331270416000234977:
+//      rangeWeaponBust
+            return std::to_string(rangeWeaponBoost);
+        case 5351291873868752646:
+//      meleeWeaponRequired
+            return std::to_string(meleeWeaponRequired);
+        case 1311252456542697337:
+//      rangeWeaponRequired
+            return std::to_string(rangeWeaponRequired);
+    }
 }
 
 Attacks::MeleeAttack::MeleeAttack (

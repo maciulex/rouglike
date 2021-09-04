@@ -21,6 +21,13 @@ int Player::getInventoryFreeIndex() {
 }
 
 void Player::drawInventory() {
+    //variables.equipedIteamId = 0;
+    std::cout
+    << "------------------------------------\n"
+    << "\tAktualnie uzywany item: \n"
+    << "\t" << getAcutalUseItemName() << "\n"
+    << "------------------------------------\n";
+
     for (int i = ((variables.actualPage-1)*25); i < (variables.actualPage*25); i++) {
         if (variables.inventory[i][0] == -1) {
             std::cout << "\t" << i+1 << ") Pusty Slot" << std::endl;
@@ -146,7 +153,10 @@ bool Player::iteamIndexValidation(int index) {
     return (index < 0 || index >= variables.inventorySize);
 }
 bool Player::tryUseIteam(int index) {
-    if (gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "useable") == "0") return false;
+    index -= 1;
+    if (isWeaponFromInventory(index)) variables.equipedIteamId = index;
+    std::string useAble = gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "useable");
+    if (useAble == "0" || useAble == "-1") return false;
 
     std::string rawEffects[2]        = {gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "effect"),
                                        gameItems::getItemData(variables.inventory[index][1], variables.inventory[index][0], "optional_effect")};
@@ -178,9 +188,16 @@ void Player::finalizeEffect(int effect, bool pernament, int latency) {
     restoreBlockedStatuses(effect);
     if (!pernament) {
         int freeIndex = specialStatusFreeIndex();
-        variables.specialStatus[freeIndex][0] = effect+100;
+        if (freeIndex == -1) return;
         variables.specialStatus[freeIndex][1] = latency;
+        if (effect < 100) variables.specialStatus[freeIndex][0] = effect+100;
+        else variables.specialStatus[freeIndex][0] = effect-100;
     }
+}
+
+std::string Player::getAcutalUseItemName() {
+    if (variables.equipedIteamId == -1 || variables.inventory[variables.equipedIteamId][1] == -1 || variables.inventory[variables.equipedIteamId][0] == -1) return "Nic nie jest zekwipowane";
+    return gameItems::getItemData(variables.inventory[variables.equipedIteamId][1], variables.inventory[variables.equipedIteamId][0], "name");
 }
 
 

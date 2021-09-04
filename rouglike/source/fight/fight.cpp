@@ -6,6 +6,8 @@
 #include "../../headers/fight/monsters.hpp"
 #include "../../headers/utilitis/board.hpp"
 #include "../../headers/player.hpp"
+#include "../../headers/fight/attacks.hpp"
+#include "../../headers/input.hpp"
 
 #include <iostream>
 #include <string>
@@ -13,12 +15,15 @@
 #include <windows.h>
 #include <thread>
 
+Fight::FightDataStruct FightData;
+
 extern Monsters::MonsterDataStruct MonstersData;
+extern Attacks::AttacksDataStruct AttacksData;
 extern Player player;
 
 void Fight::engineFight() {
     prepareFight();
-
+    Board::drawGame();
 //    while (GameVariables.battle) {
 //        if (FightData.enemiesNumber == 0) {
 //            endBattle();
@@ -55,8 +60,31 @@ void Fight::generateFightCombination() {
 
     FightData.amountOfCombintaions = GameVariables.difficulty*((FightData.endDifficulty > 15) ? 13 : FightData.endDifficulty);
 
-    if (player.variables.health <= 0) {
-        Game::playerDead();
+    for (int i = 0; i < FightData.amountOfCombintaions; i++) {
+        FightData.combination[i] = rand()%4+1;
+    }
+}
+
+void Fight::generateTimeCombination() {
+    switch (GameVariables.difficulty) {
+        case 1:
+            FightData.timeForOne = 1500;
+        break;
+        case 2:
+            FightData.timeForOne = 950;
+        break;
+        case 3:
+            FightData.timeForOne = 700;
+        break;
+        case 4:
+            FightData.timeForOne = 350;
+        break;
+        case 5:
+            FightData.timeForOne = 200;
+        break;
+        default:
+            FightData.timeForOne = 696;
+        break;
     }
 }
 
@@ -64,7 +92,7 @@ void Fight::addFightDirectory(int directory) {
     if (directory < 1 || directory > 4) return;
     if (FightData.combinationIndeks >= 32) return;
 
-    FightData.combination[FightData.combinationIndeks] = directory;
+    FightData.acutalInputCombination[FightData.combinationIndeks] = directory;
 
     FightData.combinationIndeks += 1;
 }
@@ -172,6 +200,82 @@ int Fight::getMonsterID(float lvl) {
 
     }
     return 0;
+}
+
+void Fight::getAttack(int attackType) {
+    //attackType 0 - wojownik, 1 - mag
+    int attack[2];
+    attack[0] = attackType;
+    std::cout << "\n\nWybierz atak: ";
+    std::cin >> attack[1];
+    if (std::cin.fail()) {
+        std::cin.ignore(1000, '\n');
+        getAttack(attackType);
+        return;
+    }
+    switch (attackType) {
+        case 0:
+            if (AttacksData.MeleeAttacksIndeks <= attack[1] || attack[1] < 0) attack[1] = -1;
+        break;
+        case 1:
+            if (AttacksData.RangeAttacksIndeks <= attack[1] || attack[1] < 0) attack[1] = -1;
+        break;
+    }
+    FightData.attack[0] = attack[0];
+    FightData.attack[1] = attack[1];
+    battleGo();
+}
+
+void Fight::battleGo() {
+    BlockInputThread = true;
+    FightData.fastEndEnter = false;
+    FightData.combinationIndeks = 0;
+    std::thread FightInput(InputFight);
+    generateFightCombination();
+    generateTimeCombination();
+    std::cout << "\nSzybko!:\n";
+    for (int i = 0; i < FightData.amountOfCombintaions; i++) {
+        switch (FightData.combination[i]) {
+            case 1:
+                std::cout << (char)16;
+            break;
+            case 2:
+                std::cout << (char)17;
+            break;
+            case 3:
+                std::cout << (char)30;
+            break;
+            case 4:
+                std::cout << (char)31;
+            break;
+            default:
+                i=99999;
+            break;
+        }
+    }
+    std::cout << "\n";\
+    int timePass = 0, time = FightData.timeForOne*FightData.amountOfCombintaions;
+    while (timePass <= time) {
+        if (FightData.fastEndEnter) {timePass = time+1; break;};
+        timePass += 20;
+        Sleep(20);
+    }
+    generateResult();
+    BlockInputThread = false;
+    FightInput.detach();
+    system("pause");
+}
+
+void Fight::generateResult() {
+    double resultPercentage;
+    int good = 0, bad = 0, all = FightData.amountOfCombintaions;
+    for (int i = 0; i < FightData.amountOfCombintaions; i++) {
+        if (FightData.combination[i] == FightData.acutalInputCombination[i]) good += 1;
+        else bad += 1;
+    }
+    resultPercentage = ((double)good/(double)all)*100;
+    std::cout << "Result: " << std::to_string(resultPercentage) << ", Good = " << good << ", Bad = " << bad << ", all = " << all;
+    system("pause");
 }
 
 std::string Fight::getSpecialMessageFight(int which, int lenght, bool overwrite) {

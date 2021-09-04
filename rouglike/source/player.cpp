@@ -21,11 +21,19 @@ Player::Player() {
     variables.attacksWarrior[0] = 1;
     variables.attacksWarrior[1] = 2;
     variables.attacksWarrior[2] = 3;
-    for (int i = 0; i < 150; i++) {
-        variables.inventory[0][0] = -1;
-        variables.inventory[0][1] = -1;
-        variables.specialStatus[0][0] = -1;
-        variables.specialStatus[0][1] = -1;
+    variables.inventory[0][0] = 0;
+    variables.inventory[0][1] = 0;
+    variables.inventory[1][0] = 0;
+    variables.inventory[1][1] = 1;
+    for (int i = 2; i < 150; i++) {
+        variables.inventory[i][0] = -1;
+        variables.inventory[i][1] = -1;
+        variables.specialStatus[i][0] = -1;
+        variables.specialStatus[i][1] = -1;
+    }
+    for (int i = 0; i < 50; i++) {
+        variables.attacksWarrior[i] = -1;
+        variables.attacksMagican[i] = -1;
     }
 }
 
@@ -121,6 +129,12 @@ int Player::specialStatusFreeIndex() {
     }
     return -1;
 }
+
+bool Player::isWeaponFromInventory(int index) {
+    if (variables.inventory[index][1] == 0 || variables.inventory[index][1] == 1) return true;
+    return false;
+}
+
 void Player::restoreBlockedStatuses(int which) {
     switch(which) {
         case 1:

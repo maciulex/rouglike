@@ -1,9 +1,10 @@
 #include "../headers/commands.hpp"
 
 #include "../headers/global.hpp"
-#include "../headers/utilitis/board.hpp"
 #include "../headers/player.hpp"
+#include "../headers/utilitis/board.hpp"
 #include "../headers/utilitis/menu.hpp"
+#include "../headers/fight/fight.hpp"
 #include "../headers/debug/debug.hpp"
 
 #include <math.h>
@@ -106,9 +107,13 @@ int useCommand(string command) {
                 }
             break;
             case 4:
+                //wojownik hud
                 switch (hash<string>{}(commands[i])) {
                     case 16770126819965438330:
 //                      atak
+                        GameVariables.hud = 6;
+                        player.drawAttacksWarrior();
+                        Fight::getAttack(0);
                     break;
                     case 5772833367524736768:
 //                      powrot
@@ -117,10 +122,13 @@ int useCommand(string command) {
                 }
             break;
             case 5:
+                //mag hud
                 switch (hash<string>{}(commands[i])) {
                     case 16770126819965438330:
 //                      atak
-
+                        GameVariables.hud = 6;
+                        player.drawAttacksMagican();
+                        Fight::getAttack(1);
                     break;
                     case 5772833367524736768:
 //                      powrot

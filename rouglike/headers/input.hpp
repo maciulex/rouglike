@@ -2,5 +2,6 @@
 #define __INPUT_H
 
 void Input();
+void InputFight();
 
 #endif

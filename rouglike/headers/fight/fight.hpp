@@ -4,9 +4,10 @@
 #include "monsters.hpp"
 
     namespace Fight {
-        struct {
+        struct FightDataStruct {
             //actuallFight
-            int combination[32] = {0}, amountOfCombintaions = 1, combinationIndeks;
+            int combination[32], acutalInputCombination[32], amountOfCombintaions = 1, combinationIndeks = 0, attack[2], timeForOne;
+            bool fastEndEnter;
 
             //other
             float difficultyModifier, endDifficulty;
@@ -15,13 +16,16 @@
 
             Monsters::Monsters monsters[3];
 
-        } FightData;
+        };
 
 
         void prepareFight(float localDifficultyModifier = 0);
         void endBattle();
         void engineFight();
+        void battleGo();
         void generateFightCombination();
+        void generateTimeCombination();
+        void generateResult();
         void nextMonster();
         void killMonster(int indeks);
         void addFightDirectory(int directory = 0);
@@ -30,6 +34,7 @@
         std::string getSpecialMessageFight(int which = 0, int lenght = -1, bool overwrite = true);
         void drawMonsterAddictionalData();
         void drawActuallMonster();
+        void getAttack(int attackType);
         void drawMonsterHp();
         void fight();
 
