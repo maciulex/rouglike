@@ -2,24 +2,27 @@
 
 #include "../../headers/game.hpp"
 #include "../../headers/global.hpp"
-#include "../../lib/color3.hpp"
+#include "../../headers/input.hpp"
+#include "../../headers/player.hpp"
 #include "../../headers/fight/monsters.hpp"
 #include "../../headers/utilitis/board.hpp"
-#include "../../headers/player.hpp"
 #include "../../headers/fight/attacks.hpp"
-#include "../../headers/input.hpp"
+#include "../../headers/utilitis/items.hpp"
 
+#include "../../lib/color3.hpp"
 #include <iostream>
 #include <string>
 #include <time.h>
 #include <windows.h>
 #include <thread>
+#include <math.h>
 
 Fight::FightDataStruct FightData;
 
 extern Monsters::MonsterDataStruct MonstersData;
 extern Attacks::AttacksDataStruct AttacksData;
 extern Player player;
+extern Player::PlayerVariables variablesPlayer;
 
 void Fight::engineFight() {
     prepareFight();
@@ -41,6 +44,7 @@ void Fight::endBattle() {
 void Fight::nextMonster() {
     FightData.actuallAttacker += 1;
     if (FightData.actuallAttacker == FightData.enemiesNumber) FightData.actuallAttacker = 0;
+
     Board::drawGame();
 }
 
@@ -52,7 +56,7 @@ void Fight::killMonster(int indeks) {
     }
     Game::setSpecialMessages("Potwor zostal zabity!", 0);
     FightData.enemiesNumber -= 1;
-    nextMonster();
+    if (FightData.enemiesNumber == 0) endBattle();
 }
 
 void Fight::generateFightCombination() {
@@ -116,7 +120,7 @@ void Fight::prepareMonsters() {
     for (int i = 0; i < FightData.enemiesNumber; i++) {
         Monsters::Monsters localMonster;
         localMonster = MonstersData.MonstersArray[getMonsterID(FightData.endDifficulty)];
-        localMonster.lvl = rand()%localMonster.max_lvl+localMonster.min_lvl;
+        localMonster.lvl = rand()%(localMonster.max_lvl+localMonster.min_lvl)*0.5;
         if (GameVariables.plusMonsterRand) {
             float lvlModyfier = .5;
             localMonster.hp          = localMonster.hp          + ( (rand()%localMonster.lvl) * lvlModyfier);
@@ -133,7 +137,7 @@ void Fight::prepareMonsters() {
 //        system("pause");
 
 
-        localMonster.showUpRange = (rand()%localMonster.showUpRange+1)+player.variables.eyes/(rand()%player.variables.eyes+1);
+        localMonster.showUpRange = (rand()%localMonster.showUpRange+1)+variablesPlayer.eyes/(rand()%variablesPlayer.eyes+1);
 
 
         FightData.monsters[i] = localMonster;
@@ -274,7 +278,63 @@ void Fight::generateResult() {
         else bad += 1;
     }
     resultPercentage = ((double)good/(double)all)*100;
-    std::cout << "Result: " << std::to_string(resultPercentage) << ", Good = " << good << ", Bad = " << bad << ", all = " << all;
+    //std::cout << "Result: " << std::to_string(resultPercentage) << ", Good = " << good << ", Bad = " << bad << ", all = " << all;
+    //system("pause");
+    fightResult(resultPercentage);
+}
+
+void Fight::fightResult(double goodPercent) {
+    if (goodPercent == 0) goodPercent = 1;
+    int equipedItemID = variablesPlayer.inventory[variablesPlayer.equipedIteamId][0], equipedItemType = variablesPlayer.inventory[variablesPlayer.equipedIteamId][1];
+    float range = FightData.monsters[FightData.actuallAttacker].range;
+
+    float dmgGiven = 0, dmgRecived = 0;
+
+    if (gameItems::getItemData(equipedItemType, equipedItemID, "name") != "-1") {
+        if (std::stof(gameItems::getItemData(equipedItemType, equipedItemType, "range")) >= range) {
+            dmgGiven += std::stof(gameItems::getItemData(equipedItemType, equipedItemID, "damage"))*(goodPercent/100);
+            if (range > 5) {
+                dmgRecived -= (std::stof(Attacks::getAttackData(FightData.attack[0], FightData.attack[1], "distanceDef"))*(goodPercent/100));
+            } else {
+                dmgRecived -= (std::stof(Attacks::getAttackData(FightData.attack[0], FightData.attack[1], "meleeDef"))*(goodPercent/100));
+            }
+        }
+    }
+    dmgGiven +=  variablesPlayer.strenge*.01;
+    if (range > 5) {
+        dmgGiven += std::stof(Attacks::getAttackData(FightData.attack[0], FightData.attack[1], "distanceDamage"))*(goodPercent/100);
+    } else {
+        dmgGiven += std::stof(Attacks::getAttackData(FightData.attack[0], FightData.attack[1], "meleeDamage"))*(goodPercent/100);
+    }
+    float monsterDefModyfier = (FightData.monsters[FightData.actuallAttacker].baseDef*((rand()%(int)FightData.endDifficulty+1)*0.2));
+
+    dmgGiven -= monsterDefModyfier;
+
+    if (FightData.monsters[FightData.actuallAttacker].rangeFighter) {
+        if (FightData.monsters[FightData.actuallAttacker].range >= (float)range) {
+            dmgRecived += FightData.monsters[FightData.actuallAttacker].strenght*1/goodPercent;
+        }
+    } else {
+        if (FightData.monsters[FightData.actuallAttacker].range <= (float)range) {
+            dmgRecived += FightData.monsters[FightData.actuallAttacker].strenght-(goodPercent/(rand()%10+1));
+        }
+    }
+    dmgRecived = round(dmgRecived * 100) / 100;
+    dmgGiven = round(dmgGiven * 100) / 100;
+
+    if (dmgGiven > 0) FightData.monsters[FightData.actuallAttacker].hp -= dmgGiven;
+    else dmgGiven = 0;
+
+    if (dmgRecived > 0) player.updateHP( ( dmgRecived * (-1) ) );
+    else dmgRecived = 0;
+
+    if (FightData.monsters[FightData.actuallAttacker].hp <= 0.0) killMonster(FightData.actuallAttacker);
+    drawFightResult(dmgGiven, dmgRecived);
+    nextMonster();
+}
+
+void Fight::drawFightResult(float dmgGiven, float dmgRecived) {
+    std::cout << "\n\n dmgGiven: " << dmgGiven << " dmgRecived: " << dmgRecived << "\n\n";
     system("pause");
 }
 

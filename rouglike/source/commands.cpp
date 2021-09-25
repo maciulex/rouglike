@@ -13,6 +13,7 @@
 using namespace std;
 
 extern Player player;
+extern Player::PlayerVariables variablesPlayer;
 
 int useCommand(string command) {
     bool drawGameIsRequired = true;
@@ -56,7 +57,7 @@ int useCommand(string command) {
 //                      Szczegoly
                         try {
                             where = stoi(commands[i+1]);
-                            if (where < 1 || where > player.variables.inventorySize) {
+                            if (where < 1 || where > variablesPlayer.inventorySize) {
                                 cout << "Out of range";
                                 system("pause");
                                 continue;
@@ -70,14 +71,14 @@ int useCommand(string command) {
                     break;
                     case 14526079891305879776:
 //                      >
-                        if (player.variables.actualPage == ceil(player.variables.inventorySize/player.variables.inventoryOnePageItemAmount)) return 0;
-                        player.variables.actualPage += 1;
+                        if (variablesPlayer.actualPage == ceil(variablesPlayer.inventorySize/variablesPlayer.inventoryOnePageItemAmount)) return 0;
+                        variablesPlayer.actualPage += 1;
                         Board::drawGame();
                     break;
                     case 1396094175042499165:
 //                      <
-                        if (player.variables.actualPage == 1) return 0;
-                        player.variables.actualPage -= 1;
+                        if (variablesPlayer.actualPage == 1) return 0;
+                        variablesPlayer.actualPage -= 1;
                         Board::drawGame();
                     break;
                 }

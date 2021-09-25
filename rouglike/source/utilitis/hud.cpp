@@ -9,6 +9,7 @@
 using namespace std;
 
 extern Player player;
+extern Player::PlayerVariables variablesPlayer;
 
 void Hud::drawHud() {
     char *endLine = "     | \n";
@@ -44,8 +45,8 @@ void Hud::drawHud() {
             l5s1 = "\t|   | Uzyj       | | Zapomnij   | | Cwicz      | | Przenies   | |   Powrot   |           ";
         break;
     }
-    cout << string(l1s1)+l2s1 << dye::red(player.variables.healthString[0])<<player.variables.healthString[1] << string(endLine)+l3s1
-    << dye::red(player.variables.healthString[2]) << player.variables.healthString[3] << endLine
-    << l4s1 << dye::blue(player.variables.manaString[0]) << player.variables.manaString[1] << endLine << l5s1 << player.variables.manaString[2] << player.variables.manaString[3]
-    << endLine << l6s1 << player.variables.speedString << endLine << l7s1 << player.variables.strengeString << endLine << l8s1 << player.variables.itelligenceString << endLine << l1s1;
+    cout << string(l1s1)+l2s1 << dye::red(variablesPlayer.healthString[0])<<variablesPlayer.healthString[1] << string(endLine)+l3s1
+    << dye::red(variablesPlayer.healthString[2]) << variablesPlayer.healthString[3] << endLine
+    << l4s1 << dye::blue(variablesPlayer.manaString[0]) << variablesPlayer.manaString[1] << endLine << l5s1 << variablesPlayer.manaString[2] << variablesPlayer.manaString[3]
+    << endLine << l6s1 << variablesPlayer.speedString << endLine << l7s1 << variablesPlayer.strengeString << endLine << l8s1 << variablesPlayer.itelligenceString << endLine << l1s1;
 }

@@ -269,6 +269,7 @@ std::string gameItems::getItemData(int type, int id, std::string what) {
             return getHealData(id, what);
         case 3:
             return getBuffData(id, what);
+        default: return "-1";
     }
 }
 

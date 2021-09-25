@@ -20,6 +20,7 @@
 using namespace std;
 
 Player player;
+extern Player::PlayerVariables variablesPlayer;
 
 int main()
 {
@@ -28,9 +29,6 @@ int main()
     Monsters::loadMonsters();
     gameItems::loadIteams();
     Attacks::loadAttacks();
-
-    player.variables.attacksWarrior[0] = 0;
-    player.variables.attacksWarrior[1] = 1;
 
     Board::drawBlank();
     Menu::menu();

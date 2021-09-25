@@ -26,6 +26,8 @@
         void generateFightCombination();
         void generateTimeCombination();
         void generateResult();
+        void drawFightResult(float dmgGiven = 0, float dmgRecived = 0);
+        void fightResult(double goodPercent);
         void nextMonster();
         void killMonster(int indeks);
         void addFightDirectory(int directory = 0);

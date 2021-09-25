@@ -11,7 +11,7 @@ class Player {
             int specialStatus[150][2], attacksWarrior[50], attacksMagican[50];
             int inventory[150][2], inventoryOnePageItemAmount = 25, actualPage = 1, inventorySize;
             std::string healthString[4], manaString[4], strengeString, speedString, itelligenceString, coinsString;
-        } variables;
+        };
 
         //player.cpp
         Player();

@@ -48,7 +48,7 @@
             public:
                 bool useable;
                 int id, classficationInt, rarity;
-                float damage, speed, range,requiredStrenght, requiredInt;
+                float damage, speed, range, requiredStrenght, requiredInt;
                 std::string name, classification;
         };
         class otherIteams {

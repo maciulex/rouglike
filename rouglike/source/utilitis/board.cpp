@@ -10,6 +10,7 @@
 using namespace std;
 
 extern Player player;
+extern Player::PlayerVariables variablesPlayer;
 
 void Board::drawGame() {
     drawBlank();
@@ -47,7 +48,7 @@ void Board::drawBoard() {
         for (int y = 0; y < height; y++) {
             cout << "\t";
             for (int x = 0; x < width; x++) {
-                if (y == player.variables.y && x == player.variables.x) {
+                if (y == variablesPlayer.y && x == variablesPlayer.x) {
                     cout << dye::aqua('P');
                     continue;
                 }

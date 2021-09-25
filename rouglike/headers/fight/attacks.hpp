@@ -23,6 +23,8 @@ namespace Attacks {
     void loadAttacksRange();
     void addAttackRange(std::string data[20]);
 
+    std::string getAttackData(int which = -1, int index = -1, std::string what = "-1");
+
     class Attack {
         protected:
             std::string name, lore;

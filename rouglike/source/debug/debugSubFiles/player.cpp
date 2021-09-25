@@ -3,6 +3,7 @@
 #include <iostream>
 
 extern Player player;
+extern Player::PlayerVariables variablesPlayer;
 
 void Debug::playerSubMenu() {
     while (playerSubMenuContent());
@@ -73,10 +74,10 @@ void Debug::changeStatsMenu() {
             player.updateVision(amount);
         break;
         case 7:
-            player.variables.maxHealth += amount;
+            variablesPlayer.maxHealth += amount;
         break;
         case 8:
-            player.variables.maxMana += amount;
+            variablesPlayer.maxMana += amount;
         break;
     }
 }

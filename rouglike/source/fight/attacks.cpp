@@ -187,6 +187,20 @@ void Attacks::addAttackRange(std::string data[20]) {
     AttacksData.RangeAttacksIndeks += 1;
 }
 
+std::string Attacks::getAttackData(int which, int index, std::string what) {
+    switch (which) {
+        case 0:
+        //wojownik
+            if (index < 0 || index >= AttacksData.MeleeAttacksIndeks) return "-1";
+            return AttacksData.MeleeAttacksArray[index].getAttackBaseData(what);
+        case 1:
+        //mag
+            if (index < 0 || index >= AttacksData.RangeAttacksIndeks) return "-1";
+            return AttacksData.RangeAttacksArray[index].getAttackBaseData(what);
+    }
+}
+
+
 std::string Attacks::Attack::getAttackBaseData(std::string which) {
     std::string dataHolder = "";
     switch (std::hash<std::string>{}(which)) {
@@ -195,7 +209,7 @@ std::string Attacks::Attack::getAttackBaseData(std::string which) {
             return name;
         case 12580124215795132112:
 //      lore
-            return name;
+            return lore;
         case 15869450025595216493:
 //      lvl
             return std::to_string(lvl);
@@ -245,6 +259,7 @@ std::string Attacks::Attack::getAttackBaseData(std::string which) {
         case 1311252456542697337:
 //      rangeWeaponRequired
             return std::to_string(rangeWeaponRequired);
+        default: return "-1";
     }
 }
 

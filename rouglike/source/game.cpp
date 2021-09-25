@@ -7,6 +7,8 @@
 
 extern Player player;
 
+extern Player::PlayerVariables variablesPlayer;
+
 void Game::playerDead() {
 
 
@@ -73,8 +75,8 @@ void Game::generateWord() {
         }
     }
     GameVariables.level += 1;
-    player.variables.x = width/2;
-    player.variables.y = height/2;
+    variablesPlayer.x = width/2;
+    variablesPlayer.y = height/2;
 }
 void Game::setSpecialMessages(std::string text, int row) {
     GameVariables.specialMesseges[row] = text;

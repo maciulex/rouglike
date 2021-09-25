@@ -4,37 +4,42 @@
 #include "../headers/utilitis/board.hpp"
 #include <stdlib.h>
 #include <iostream>
+
 using namespace std;
 
+Player::PlayerVariables variablesPlayer;
+
 Player::Player() {
-    variables.maxHealth = 5;
-    variables.maxMana = 3;
-    variables.inventorySize = 50;
+    variablesPlayer.maxHealth = 5;
+    variablesPlayer.maxMana = 3;
+    variablesPlayer.inventorySize = 50;
     updateHP(5);
     updateMP(3);
     updateSP(10);
     updateST(10);
     updateIT(3);
-    variables.attacksMagican[0] = 1;
-    variables.attacksMagican[1] = 2;
-    variables.attacksMagican[2] = 3;
-    variables.attacksWarrior[0] = 1;
-    variables.attacksWarrior[1] = 2;
-    variables.attacksWarrior[2] = 3;
-    variables.inventory[0][0] = 0;
-    variables.inventory[0][1] = 0;
-    variables.inventory[1][0] = 0;
-    variables.inventory[1][1] = 1;
+    variablesPlayer.attacksMagican[0] = 1;
+    variablesPlayer.attacksMagican[1] = 2;
+    variablesPlayer.attacksMagican[2] = 3;
+    variablesPlayer.attacksWarrior[0] = 1;
+    variablesPlayer.attacksWarrior[1] = 2;
+    variablesPlayer.attacksWarrior[2] = 3;
+    variablesPlayer.inventory[0][0] = 0;
+    variablesPlayer.inventory[0][1] = 0;
+    variablesPlayer.inventory[1][0] = 0;
+    variablesPlayer.inventory[1][1] = 1;
     for (int i = 2; i < 150; i++) {
-        variables.inventory[i][0] = -1;
-        variables.inventory[i][1] = -1;
-        variables.specialStatus[i][0] = -1;
-        variables.specialStatus[i][1] = -1;
+        variablesPlayer.inventory[i][0] = -1;
+        variablesPlayer.inventory[i][1] = -1;
+        variablesPlayer.specialStatus[i][0] = -1;
+        variablesPlayer.specialStatus[i][1] = -1;
     }
     for (int i = 0; i < 50; i++) {
-        variables.attacksWarrior[i] = -1;
-        variables.attacksMagican[i] = -1;
+        variablesPlayer.attacksWarrior[i] = -1;
+        variablesPlayer.attacksMagican[i] = -1;
     }
+    variablesPlayer.attacksWarrior[0] = 0;
+    variablesPlayer.attacksWarrior[1] = 1;
 }
 
 void Player::hitWall(int strength) {
@@ -52,26 +57,26 @@ void Player::hitWall(int strength) {
                 break;
                 case 2:
                     Game::setSpecialMessages("Cegla spadla ci na noge -2 predkosci na 2 tury", 1);
-                    variables.specialStatus[freeIndex][0] = 14;
-                    variables.specialStatus[freeIndex][1] = 2;
+                    variablesPlayer.specialStatus[freeIndex][0] = 14;
+                    variablesPlayer.specialStatus[freeIndex][1] = 2;
                     updateSP(-2);
                 break;
                 case 3:
                     Game::setSpecialMessages("Uderzyles o sciane maly palec u nogi cie boli -1 speed na 3 tury", 1);
-                    variables.specialStatus[freeIndex][0] = 13;
-                    variables.specialStatus[freeIndex][1] = 3;
+                    variablesPlayer.specialStatus[freeIndex][0] = 13;
+                    variablesPlayer.specialStatus[freeIndex][1] = 3;
                     updateSP(-1);
                 break;
                 case 4:
                     Game::setSpecialMessages("Uderzyles glowa o sciane -2 int na 3 tury", 1);
-                    variables.specialStatus[freeIndex][0] = 11;
-                    variables.specialStatus[freeIndex][1] = 3;
+                    variablesPlayer.specialStatus[freeIndex][0] = 11;
+                    variablesPlayer.specialStatus[freeIndex][1] = 3;
                     updateIT(-2);
                 break;
                 case 5:
                     Game::setSpecialMessages("Prawie spadles z klifu ale zlapales sie reka -2 sily na 2 tury", 1);
-                    variables.specialStatus[freeIndex][0] = 8;
-                    variables.specialStatus[freeIndex][1] = 2;
+                    variablesPlayer.specialStatus[freeIndex][0] = 8;
+                    variablesPlayer.specialStatus[freeIndex][1] = 2;
                     updateST(-2);
                 break;
                 case 6:
@@ -123,7 +128,7 @@ void Player::hitWall(int strength) {
 }
 int Player::specialStatusFreeIndex() {
     for (int i = 0; i < 150; i++) {
-        if (variables.specialStatus[i][0] == -1) {
+        if (variablesPlayer.specialStatus[i][0] == -1) {
             return i;
         }
     }
@@ -131,7 +136,7 @@ int Player::specialStatusFreeIndex() {
 }
 
 bool Player::isWeaponFromInventory(int index) {
-    if (variables.inventory[index][1] == 0 || variables.inventory[index][1] == 1) return true;
+    if (variablesPlayer.inventory[index][1] == 0 || variablesPlayer.inventory[index][1] == 1) return true;
     return false;
 }
 

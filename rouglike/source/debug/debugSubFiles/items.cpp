@@ -4,6 +4,8 @@
 #include <iostream>
 
 extern Player player;
+extern Player::PlayerVariables variablesPlayer;
+
 
 void Debug::itemsSubMenu() {
     while (itemsSubMenuContent());
@@ -72,6 +74,6 @@ void Debug::changeIteamInInventory() {
         std::cin.ignore(1000, '\n');
         return;
     }
-    player.variables.inventory[index][0] = id_item;
-    player.variables.inventory[index][1] = id_type;
+    variablesPlayer.inventory[index][0] = id_item;
+    variablesPlayer.inventory[index][1] = id_type;
 }

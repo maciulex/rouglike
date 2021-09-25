@@ -7,20 +7,22 @@
 
 using namespace std;
 
+extern Player::PlayerVariables variablesPlayer;
+
 void Player::playerMove(int GoTox, int GoToy, bool draw) {
     if (GameVariables.battle) {
         return;
     }
     for (int i = 0; i < 150; i++) {
-        if (variables.specialStatus[i][0] != -1) {
-            variables.specialStatus[i][1]-=1;
-            if (variables.specialStatus[i][1] == 0) {
-                variables.specialStatus[i][0] = -1;
-                restoreBlockedStatuses(variables.specialStatus[i][1]);
+        if (variablesPlayer.specialStatus[i][0] != -1) {
+            variablesPlayer.specialStatus[i][1]-=1;
+            if (variablesPlayer.specialStatus[i][1] == 0) {
+                variablesPlayer.specialStatus[i][0] = -1;
+                restoreBlockedStatuses(variablesPlayer.specialStatus[i][1]);
             }
         }
     }
-    int cordinates[2] = {variables.y,variables.x};
+    int cordinates[2] = {variablesPlayer.y,variablesPlayer.x};
     int hitStrenght = 0;
     if (GoTox < 0) {
         for (int i = 0; i > GoTox; i--) {
@@ -72,9 +74,9 @@ void Player::playerMove(int GoTox, int GoToy, bool draw) {
             }
         }
     }
-    variables.y = cordinates[0];
-    variables.x = cordinates[1];
-    if (GameVariables.board[variables.y][variables.x] == 2) {
+    variablesPlayer.y = cordinates[0];
+    variablesPlayer.x = cordinates[1];
+    if (GameVariables.board[variablesPlayer.y][variablesPlayer.x] == 2) {
         Game::setSpecialMessages("[i] dostepna komenda \"otworz\"",4);
     }
     switch (hitStrenght) {
@@ -100,71 +102,71 @@ void Player::playerMove(int GoTox, int GoToy, bool draw) {
 
 void Player::updateHP(int x) {
     char blockChar = 254;
-    if (variables.health+x <= variables.maxHealth) variables.health += x;
-    else variables.health = variables.maxHealth;
+    if (variablesPlayer.health+x <= variablesPlayer.maxHealth) variablesPlayer.health += x;
+    else variablesPlayer.health = variablesPlayer.maxHealth;
     int hp1=0,hp2=0,hpM1=0,hpM2=0;
-    for (int i = 0; i < variables.maxHealth; i++) {
+    for (int i = 0; i < variablesPlayer.maxHealth; i++) {
         if (i < 5) {
-            if (i < variables.health) {
+            if (i < variablesPlayer.health) {
                 hp1++;
             } else {
                 hpM1++;
             }
         } else {
-            if (i < variables.health) {
+            if (i < variablesPlayer.health) {
                 hp2++;
             } else {
                 hpM2++;
             }
         }
     }
-    variables.healthString[0] = string(hp1, blockChar);
-    variables.healthString[1] = string(hpM1, blockChar)+string(5-hp1-hpM1,32);
-    variables.healthString[2] = string(hp2, blockChar);
-    variables.healthString[3] = string(hpM2, blockChar)+string(5-hp2-hpM2,32);
+    variablesPlayer.healthString[0] = string(hp1, blockChar);
+    variablesPlayer.healthString[1] = string(hpM1, blockChar)+string(5-hp1-hpM1,32);
+    variablesPlayer.healthString[2] = string(hp2, blockChar);
+    variablesPlayer.healthString[3] = string(hpM2, blockChar)+string(5-hp2-hpM2,32);
 };
 void Player::updateMP(int x) {
     char blockChar = 254;
-    if (variables.mana+x <= variables.maxMana) variables.mana += x;
-    else variables.mana = variables.maxMana;
+    if (variablesPlayer.mana+x <= variablesPlayer.maxMana) variablesPlayer.mana += x;
+    else variablesPlayer.mana = variablesPlayer.maxMana;
     int mp1=0,mp2=0,mpM1=0,mpM2=0;
-    for (int i = 0; i < variables.maxMana; i++) {
+    for (int i = 0; i < variablesPlayer.maxMana; i++) {
         if (i < 5) {
-            if (i < variables.mana) {
+            if (i < variablesPlayer.mana) {
                 mp1++;
             } else {
                 mpM1++;
             }
         } else {
-            if (i < variables.mana) {
+            if (i < variablesPlayer.mana) {
                 mp2++;
             } else {
                 mpM2++;
             }
         }
     }
-    variables.manaString[0] = string(mp1, blockChar);
-    variables.manaString[1] = string(mpM1, blockChar)+string(5-mp1-mpM1,32);
-    variables.manaString[2] = string(mp2, blockChar);
-    variables.manaString[3] = string(mpM2, blockChar)+string(5-mp2-mpM2,32);
+    variablesPlayer.manaString[0] = string(mp1, blockChar);
+    variablesPlayer.manaString[1] = string(mpM1, blockChar)+string(5-mp1-mpM1,32);
+    variablesPlayer.manaString[2] = string(mp2, blockChar);
+    variablesPlayer.manaString[3] = string(mpM2, blockChar)+string(5-mp2-mpM2,32);
 };
 void Player::updateST(int x) {
-    variables.strenge += x;
-    variables.strengeString = to_string(variables.strenge)+string(5-to_string(variables.strenge).length(),32);
+    variablesPlayer.strenge += x;
+    variablesPlayer.strengeString = to_string(variablesPlayer.strenge)+string(5-to_string(variablesPlayer.strenge).length(),32);
 };
 void Player::updateSP(int x) {
-    variables.speed += x;
-    variables.speedString = to_string(variables.speed)+string(5-to_string(variables.speed).length(), 32);
+    variablesPlayer.speed += x;
+    variablesPlayer.speedString = to_string(variablesPlayer.speed)+string(5-to_string(variablesPlayer.speed).length(), 32);
 };
 void Player::updateIT(int x) {
-    variables.itelligence += x;
-    variables.itelligenceString = to_string(variables.itelligence)+string(5-to_string(variables.itelligence).length(),32);
+    variablesPlayer.itelligence += x;
+    variablesPlayer.itelligenceString = to_string(variablesPlayer.itelligence)+string(5-to_string(variablesPlayer.itelligence).length(),32);
 };
 void Player::updateCOIN(int x) {
-    variables.coins += x;
-    variables.coinsString = to_string(variables.coins)+string(5-to_string(variables.coins).length(),32);
+    variablesPlayer.coins += x;
+    variablesPlayer.coinsString = to_string(variablesPlayer.coins)+string(5-to_string(variablesPlayer.coins).length(),32);
 };
 void Player::updateVision(int x) {
-    variables.eyes += x;
+    variablesPlayer.eyes += x;
 }
 
